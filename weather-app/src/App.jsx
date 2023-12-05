@@ -1,10 +1,7 @@
 function App() {
-
   return (
     <>
-    <div>
-    test
-    </div>
+      <div>test</div>
     </>
   )
 }
