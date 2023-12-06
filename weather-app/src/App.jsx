@@ -1,7 +1,11 @@
+import Main from './pages/Main/Main'
+import Profile from './pages/Profile/Profile'
+
 function App() {
   return (
     <>
-      <div>test</div>
+      <Main />
+      <Profile />
     </>
   )
 }
