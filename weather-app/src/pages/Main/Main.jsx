@@ -6,12 +6,20 @@ import WeatherDetailInfo from '../../components/WeatherDetailInfo/WeatherDetailI
 
 const Main = () => {
   return (
-    <>
-      <h1>Main page!</h1>
-      {/* <Sidebar />
-      <WeatherList />
-      <WeatherDetailInfo /> */}
-    </>
+    <main>
+      <Sidebar />
+      <div className="main-wrapper">
+        <div className="main-buttons">
+          <button>Theme</button>
+          <button>Login</button>
+          <button>Register</button>
+        </div>
+        <div className="main-content">
+          <WeatherList />
+          <WeatherDetailInfo />
+        </div>
+      </div>
+    </main>
   )
 }
 
