@@ -7,10 +7,10 @@ import WeatherDetailInfo from '../../components/WeatherDetailInfo/WeatherDetailI
 const Main = () => {
   return (
     <>
-      <h1>Main page</h1>
-      <Sidebar />
+      <h1>Main page!</h1>
+      {/* <Sidebar />
       <WeatherList />
-      <WeatherDetailInfo />
+      <WeatherDetailInfo /> */}
     </>
   )
 }
