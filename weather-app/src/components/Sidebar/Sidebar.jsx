@@ -11,12 +11,12 @@ import humidity_pic from '../../assets/humidity_pic.png'
 const Sidebar = () => {
   let api_key = '0e27dfb9c6082f5b89f8745c47d36ccb'
 
-  const [wicon, setWicon] = useState(snow_pic)
   const [searchCity, setSearchCity] = useState('London')
   const [city, setCity] = useState('')
   const [temperature, setTemperature] = useState('')
   const [humidity, setHumidity] = useState('')
   const [wind, setWind] = useState('')
+  const [weatherIcon, setWeatherIcon] = useState('')
 
   const handleInputChange = (event) => {
     setSearchCity(event.target.value)
@@ -32,6 +32,8 @@ const Sidebar = () => {
     setTemperature(data.main.temp.toFixed(1))
     setHumidity(data.main.humidity)
     setWind(data.wind.speed)
+    setWeatherIcon(data.weather[0].icon)
+    console.log(data)
   }
 
   useEffect(() => {
@@ -51,9 +53,15 @@ const Sidebar = () => {
           />
         </div>
         <div className="weather-image">
-          <img src={sunny_pic} alt="" />
+          <img
+            src={`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`}
+            alt=""
+          />
         </div>
-        <div className="weather-temp">{temperature}&deg;C</div>
+        <div className="weather-temp">
+          {temperature}
+          <span>&deg;C</span>
+        </div>
         <div className="weather-location">{city}</div>
         <div className="data-container">
           <div className="element">

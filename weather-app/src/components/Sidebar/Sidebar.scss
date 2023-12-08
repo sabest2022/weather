@@ -48,13 +48,12 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 5rem;
 }
 
 .weather-image img {
   max-width: 100%; /* Set the maximum width */
   max-height: 100%; /* Set the maximum height */
-  height: 10rem; /* You can keep a fixed height */
-  width: 10rem; /* You can keep a fixed width */
 }
 
 .weather-temp {
@@ -63,6 +62,12 @@ input:focus {
   color: black;
   font-size: 80px;
   font-weight: 400;
+
+  span {
+    margin-top: 12px;
+    font-size: 45px;
+    font-weight: 600;
+  }
 }
 
 .weather-location {
@@ -77,21 +82,23 @@ input:focus {
   margin-top: 50px;
   color: black;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
 .element {
-  margin: auto;
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 1.2rem;
+  width: 10rem;
 }
 
 .data-container img {
   max-width: 100%; /* Set the maximum width */
   max-height: 100%; /* Set the maximum height */
-  height: 5rem; /* You can keep a fixed height */
-  width: 5rem; /* You can keep a fixed width */
+  height: 2rem; /* You can keep a fixed height */
+  width: 2rem; /* You can keep a fixed width */
 }
 
 .data {
