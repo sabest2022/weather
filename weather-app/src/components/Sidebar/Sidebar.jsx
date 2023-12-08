@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react'
 import './Sidebar.scss'
 import { IoSearch } from 'react-icons/io5'
 
-import frost_pic from '../../assets/Frost_weather.png'
-import snow_pic from '../../assets/Snow_weather.png'
-import sunny_pic from '../../assets/Sunny_weather.png'
 import windy_pic from '../../assets/windy_pic.png'
 import humidity_pic from '../../assets/humidity_pic.png'
 
@@ -16,7 +13,7 @@ const Sidebar = () => {
   const [temperature, setTemperature] = useState('')
   const [humidity, setHumidity] = useState('')
   const [wind, setWind] = useState('')
-  const [weatherIcon, setWeatherIcon] = useState('')
+  const [icon, setIcon] = useState('')
 
   const handleInputChange = (event) => {
     setSearchCity(event.target.value)
@@ -32,7 +29,7 @@ const Sidebar = () => {
     setTemperature(data.main.temp.toFixed(1))
     setHumidity(data.main.humidity)
     setWind(data.wind.speed)
-    setWeatherIcon(data.weather[0].icon)
+    setIcon(data.weather[0].icon)
     console.log(data)
   }
 
@@ -48,13 +45,13 @@ const Sidebar = () => {
           <input
             type="text"
             className="city-input"
-            placeholder="Search City"
+            placeholder="Search for places..."
             onChange={handleInputChange}
           />
         </div>
         <div className="weather-image">
           <img
-            src={`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`}
+            src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
             alt=""
           />
         </div>
@@ -65,16 +62,16 @@ const Sidebar = () => {
         <div className="weather-location">{city}</div>
         <div className="data-container">
           <div className="element">
-            <img src={humidity_pic} alt="" className="icon" />
+            <img src={humidity_pic} alt="humidity" className="icon" />
             <div className="data">
               <div className="humidity-percent">{humidity}%</div>
               <div className="text">Humidity</div>
             </div>
           </div>
           <div className="element">
-            <img src={windy_pic} alt="" className="icon" />
+            <img src={windy_pic} alt="wind" className="icon" />
             <div className="data">
-              <div className="wind-rate">{wind}</div>
+              <div className="wind-rate">{wind} km/h</div>
               <div className="text">Wind</div>
             </div>
           </div>

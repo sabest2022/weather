@@ -27,7 +27,6 @@ aside {
   }
 
   input {
-    width: 20rem;
     height: 2rem;
     border: none;
     outline: none;
@@ -41,14 +40,14 @@ aside {
 }
 
 input:focus {
-  background-color: rgb(236, 236, 236);
+  background-color: rgb(248, 248, 248);
 }
 
 .weather-image {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: 10rem;
 }
 
 .weather-image img {
@@ -74,12 +73,12 @@ input:focus {
   display: flex;
   justify-content: center;
   color: black;
-  font-size: 60px;
-  font-weight: 400;
+  font-size: 80px;
+  font-weight: 800;
 }
 
 .data-container {
-  margin-top: 50px;
+  margin-top: 30px;
   color: black;
   display: flex;
   flex-direction: column;
@@ -102,13 +101,14 @@ input:focus {
 }
 
 .data {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 400;
 }
 
 .text {
   font-size: 18px;
   font-weight: 400;
+  color: rgb(177, 177, 177);
 }
 .icon {
   margin-top: 10px;
