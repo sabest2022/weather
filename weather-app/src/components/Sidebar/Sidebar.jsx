@@ -14,23 +14,28 @@ const Sidebar = () => {
   const [humidity, setHumidity] = useState('')
   const [wind, setWind] = useState('')
   const [icon, setIcon] = useState('')
+  const [error, setError] = useState(false)
 
   const handleInputChange = (event) => {
     setSearchCity(event.target.value)
   }
 
   const search = async () => {
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=Metric&appid=${api_key}`
+    try {
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=Metric&appid=${api_key}`
 
-    let response = await fetch(url)
-    let data = await response.json()
+      let response = await fetch(url)
+      let data = await response.json()
 
-    setCity(data.name)
-    setTemperature(data.main.temp.toFixed(1))
-    setHumidity(data.main.humidity)
-    setWind(data.wind.speed)
-    setIcon(data.weather[0].icon)
-    console.log(data)
+      setCity(data.name)
+      setTemperature(data.main.temp.toFixed(1))
+      setHumidity(data.main.humidity)
+      setWind(data.wind.speed)
+      setIcon(data.weather[0].icon)
+      setError(false)
+    } catch (error) {
+      setError(true)
+    }
   }
 
   useEffect(() => {
@@ -49,33 +54,41 @@ const Sidebar = () => {
             onChange={handleInputChange}
           />
         </div>
-        <div className="weather-image">
-          <img
-            src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
-            alt=""
-          />
-        </div>
-        <div className="weather-temp">
-          {temperature}
-          <span>&deg;C</span>
-        </div>
-        <div className="weather-location">{city}</div>
-        <div className="data-container">
-          <div className="element">
-            <img src={humidity_pic} alt="humidity" className="icon" />
-            <div className="data">
-              <div className="humidity-percent">{humidity}%</div>
-              <div className="text">Humidity</div>
+        {!error ? (
+          <div>
+            <div className="weather-image">
+              <img
+                src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+                alt=""
+              />
+            </div>
+            <div className="weather-temp">
+              {temperature}
+              <span>&deg;C</span>
+            </div>
+            <div className="weather-location">{city}</div>
+            <div className="data-container">
+              <div className="element">
+                <img src={humidity_pic} alt="humidity" className="icon" />
+                <div className="data">
+                  <div className="humidity-percent">{humidity}%</div>
+                  <div className="text">Humidity</div>
+                </div>
+              </div>
+              <div className="element">
+                <img src={windy_pic} alt="wind" className="icon" />
+                <div className="data">
+                  <div className="wind-rate">{wind} km/h</div>
+                  <div className="text">Wind</div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="element">
-            <img src={windy_pic} alt="wind" className="icon" />
-            <div className="data">
-              <div className="wind-rate">{wind} km/h</div>
-              <div className="text">Wind</div>
-            </div>
+        ) : (
+          <div className="error-container">
+            <h1>Theres no such city...</h1>
           </div>
-        </div>
+        )}
       </div>
     </aside>
   )
