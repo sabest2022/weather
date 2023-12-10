@@ -8,30 +8,23 @@ import humidity_pic from '../../assets/humidity_pic.png'
 const Sidebar = () => {
   let api_key = '0e27dfb9c6082f5b89f8745c47d36ccb'
 
-  const [searchCity, setSearchCity] = useState('London')
-  const [city, setCity] = useState('')
-  const [temperature, setTemperature] = useState('')
-  const [humidity, setHumidity] = useState('')
-  const [wind, setWind] = useState('')
-  const [icon, setIcon] = useState('')
+  const [city, setCity] = useState('London')
+  const [data, setData] = useState({})
   const [error, setError] = useState(false)
+  console.log(data)
 
   const handleInputChange = (event) => {
-    setSearchCity(event.target.value)
+    setCity(event.target.value)
   }
 
   const search = async () => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=Metric&appid=${api_key}`
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=Metric&appid=${api_key}`
 
       let response = await fetch(url)
       let data = await response.json()
 
-      setCity(data.name)
-      setTemperature(data.main.temp.toFixed(1))
-      setHumidity(data.main.humidity)
-      setWind(data.wind.speed)
-      setIcon(data.weather[0].icon)
+      setData(data)
       setError(false)
     } catch (error) {
       setError(true)
@@ -58,27 +51,27 @@ const Sidebar = () => {
           <div>
             <div className="weather-image">
               <img
-                src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+                src={`https://openweathermap.org/img/wn/${data.weather?.[0]?.icon}@2x.png`}
                 alt=""
               />
             </div>
             <div className="weather-temp">
-              {temperature}
+              {data.main?.temp.toFixed(1)}
               <span>&deg;C</span>
             </div>
-            <div className="weather-location">{city}</div>
+            <div className="weather-location">{data.name}</div>
             <div className="data-container">
               <div className="element">
                 <img src={humidity_pic} alt="humidity" className="icon" />
                 <div className="data">
-                  <div className="humidity-percent">{humidity}%</div>
+                  <div className="humidity-percent">{data.main?.humidity}%</div>
                   <div className="text">Humidity</div>
                 </div>
               </div>
               <div className="element">
                 <img src={windy_pic} alt="wind" className="icon" />
                 <div className="data">
-                  <div className="wind-rate">{wind} km/h</div>
+                  <div className="wind-rate">{data.wind?.speed} km/h</div>
                   <div className="text">Wind</div>
                 </div>
               </div>
