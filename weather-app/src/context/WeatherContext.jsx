@@ -35,17 +35,24 @@ export const WeatherProvider = ({ children }) => {
   }
 
   const getTodayWeather = async () => {
-    let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=Metric&appid=${api_key}`
+    try {
+      let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=Metric&appid=${api_key}`
 
-    let response = await fetch(url)
-    let data = await response.json()
+      let response = await fetch(url)
+      let data = await response.json()
 
-    const currentDate = new Date().toISOString().split('T')[0]
-    const todayWeatherData = data.list.filter((item) =>
-      item.dt_txt.startsWith(currentDate),
-    )
+      const currentDate = new Date().toISOString().split('T')[0]
+      const todayWeatherData = data.list.filter((item) =>
+        item.dt_txt.startsWith(currentDate),
+      )
 
-    setTodayWeather(todayWeatherData)
+      setIsLoading(true)
+      setError(false)
+      setTodayWeather(todayWeatherData)
+    } catch (error) {
+      setIsLoading(false)
+      setError(true)
+    }
   }
 
   useEffect(() => {
