@@ -29,6 +29,11 @@ const Sidebar = () => {
             className="city-input"
             placeholder="Search for places..."
             onChange={handleInputChange}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSearchClick()
+              }
+            }}
           />
         </div>
 
