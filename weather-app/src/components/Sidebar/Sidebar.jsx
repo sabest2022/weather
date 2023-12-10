@@ -38,9 +38,9 @@ const Sidebar = () => {
     }
   }
 
-  useEffect(() => {
-    search()
-  }, [])
+  // useEffect(() => {
+  //   search()
+  // }, [])
 
   return (
     <aside>
