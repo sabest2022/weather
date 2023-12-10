@@ -1,30 +1,10 @@
 import { useEffect, useState } from 'react'
 import './WeatherList.scss'
 import WeatherCard from '../WeatherCard/WeatherCard'
+import { useWeatherContext } from '../../context/WeatherContext'
 
 const WeatherList = () => {
-  let api_key = '0e27dfb9c6082f5b89f8745c47d36ccb'
-
-  const [data, setData] = useState([])
-  console.log(data)
-
-  const search = async () => {
-    let url = `https://api.openweathermap.org/data/2.5/forecast?q=London&units=Metric&cnt=10&appid=${api_key}`
-
-    let response = await fetch(url)
-    let data = await response.json()
-
-    const currentDate = new Date().toISOString().split('T')[0]
-    const todayWeatherData = data.list.filter((item) =>
-      item.dt_txt.startsWith(currentDate),
-    )
-
-    setData(todayWeatherData)
-  }
-
-  useEffect(() => {
-    search()
-  }, [])
+  const { todayWeather } = useWeatherContext()
 
   return (
     <>
@@ -33,7 +13,7 @@ const WeatherList = () => {
         <h2>Week</h2>
       </div>
       <div className="weather-list">
-        {data.map((day, index) => (
+        {todayWeather.map((day, index) => (
           <WeatherCard
             dt={day.dt}
             icon={day.weather[0].icon}
