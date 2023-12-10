@@ -4,6 +4,7 @@ import { IoSearch } from 'react-icons/io5'
 
 import windy_pic from '../../assets/windy_pic.png'
 import humidity_pic from '../../assets/humidity_pic.png'
+import Loader from '../Loader/Loader'
 
 const Sidebar = () => {
   let api_key = '0e27dfb9c6082f5b89f8745c47d36ccb'
@@ -11,7 +12,7 @@ const Sidebar = () => {
   const [city, setCity] = useState('London')
   const [data, setData] = useState({})
   const [error, setError] = useState(false)
-  console.log(data)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleInputChange = (event) => {
     setCity(event.target.value)
@@ -24,9 +25,15 @@ const Sidebar = () => {
       let response = await fetch(url)
       let data = await response.json()
 
-      setData(data)
+      if (!response.ok) {
+        throw new Error(`Status: ${response.status}`)
+      }
+
+      setIsLoading(true)
       setError(false)
+      setData(data)
     } catch (error) {
+      setIsLoading(false)
       setError(true)
     }
   }
@@ -47,7 +54,16 @@ const Sidebar = () => {
             onChange={handleInputChange}
           />
         </div>
-        {!error ? (
+
+        {!isLoading && !error ? (
+          <div className="loading-container">
+            <Loader />
+          </div>
+        ) : error ? (
+          <div className="error-container">
+            <h1>Theres no such city...</h1>
+          </div>
+        ) : (
           <div>
             <div className="weather-image">
               <img
@@ -76,10 +92,6 @@ const Sidebar = () => {
                 </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="error-container">
-            <h1>Theres no such city...</h1>
           </div>
         )}
       </div>
