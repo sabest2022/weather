@@ -10,7 +10,9 @@ const WeatherList = () => {
   return (
     <>
       <div className="weather-selector">
-        <h2 className={todayWeather.length > 0 && 'selected'}>Today</h2>
+        <h2 className={todayWeather.length > 0 ? 'selected' : undefined}>
+          Today
+        </h2>
         <h2>Week</h2>
       </div>
       {!isLoading ? (
