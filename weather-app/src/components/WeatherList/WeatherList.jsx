@@ -7,7 +7,7 @@ const WeatherList = () => {
   const [data, setData] = useState({})
 
   const search = async () => {
-    let url = `https://api.openweathermap.org/data/2.5/forecast?q=London&units=Metric&appid=${api_key}`
+    let url = `https://api.openweathermap.org/data/2.5/forecast?q=London&units=Metric&cnt=3&appid=${api_key}`
 
     let response = await fetch(url)
     let data = await response.json()
@@ -25,7 +25,18 @@ const WeatherList = () => {
         <h2>Today</h2>
         <h2>Week</h2>
       </div>
-      <WeatherCard />
+      <div>
+        {data.list?.map((day, index) => (
+          <WeatherCard
+            dt={day.dt}
+            icon={day.weather[0].icon}
+            description={day.weather[0].description}
+            temp_max={day.main.temp_max}
+            temp_min={day.main.temp_min}
+            index={index}
+          />
+        ))}
+      </div>
     </>
   )
 }
