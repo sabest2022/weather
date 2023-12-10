@@ -1,14 +1,8 @@
 import React from 'react'
 import './WeatherCard.scss'
+import { convertTimestampToDate } from '../../utils/formatDate'
 
 const WeatherCard = ({ dt, temp_max, temp_min, icon, description }) => {
-  const convertTimestampToDate = (timestamp) => {
-    const date = new Date(timestamp * 1000)
-    const hours = date.getHours().toString().padStart(2, '0')
-    const minutes = date.getMinutes().toString().padStart(2, '0')
-    return `${hours}:${minutes}`
-  }
-
   return (
     <div className="weather-card-container">
       <h3>{convertTimestampToDate(dt)}</h3>
