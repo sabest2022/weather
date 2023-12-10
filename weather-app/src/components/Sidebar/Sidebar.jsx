@@ -49,7 +49,7 @@ const Sidebar = () => {
           <div>
             <div className="weather-image">
               <img
-                src={`https://openweathermap.org/img/wn/${currentWeather.weather?.[0]?.icon}@2x.png`}
+                src={`https://openweathermap.org/img/wn/${currentWeather.weather?.[0]?.icon}@4x.png`}
                 alt={currentWeather.weather?.[0]?.description}
               />
             </div>
