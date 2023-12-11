@@ -3,6 +3,7 @@ import Profile from './pages/Profile/Profile'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { WeatherProvider } from './context/WeatherContext'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  return <RouterProvider router={router} />
+  return (
+    <WeatherProvider>
+      <RouterProvider router={router} />
+    </WeatherProvider>
+  )
 }
 
 export default App
