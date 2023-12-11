@@ -83,6 +83,7 @@ export const WeatherProvider = ({ children }) => {
         todayWeather,
         cityInput,
         setCityInput,
+        weekWeather,
       }}
     >
       {children}
