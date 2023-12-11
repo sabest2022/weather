@@ -1,29 +1,32 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './WeatherList.scss'
 import WeatherCard from '../WeatherCard/WeatherCard'
 import { useWeatherContext } from '../../context/WeatherContext'
 import Loader from '../Loader/Loader'
-import { convertTimestampToDate } from '../../utils/formatDate'
+import {
+  convertTimestampToDayOfWeek,
+  convertTimestampToTime,
+} from '../../utils/formatDate'
 
 const WeatherList = () => {
   const { todayWeather, weekWeather, isLoading } = useWeatherContext()
-  const [selector, setSelector] = useState('today')
+  const [selected, setSelected] = useState('today')
 
   const handleSelectorClick = (selected) => {
-    setSelector(selected)
+    setSelected(selected)
   }
 
   return (
     <>
       <div className="weather-selector">
         <h2
-          className={selector === 'today' ? 'selected' : undefined}
+          className={selected === 'today' ? 'selected' : undefined}
           onClick={() => handleSelectorClick('today')}
         >
           Today
         </h2>
         <h2
-          className={selector === 'week' ? 'selected' : undefined}
+          className={selected === 'week' ? 'selected' : undefined}
           onClick={() => handleSelectorClick('week')}
         >
           Week
@@ -35,10 +38,10 @@ const WeatherList = () => {
         </div>
       ) : (
         <div className="weather-list">
-          {selector === 'today'
+          {selected === 'today'
             ? todayWeather.map((date, index) => (
                 <WeatherCard
-                  dt={convertTimestampToDate(date.dt)}
+                  dt={convertTimestampToTime(date.dt)}
                   icon={date.weather[0].icon}
                   description={date.weather[0].description}
                   temp={date.main.temp}
@@ -48,7 +51,7 @@ const WeatherList = () => {
               ))
             : weekWeather.map((date, index) => (
                 <WeatherCard
-                  dt={date.dt}
+                  dt={convertTimestampToDayOfWeek(date.dt)}
                   icon={date.weather[0].icon}
                   description={date.weather[0].description}
                   temp={date.main.temp}
