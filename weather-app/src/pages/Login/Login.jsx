@@ -1,24 +1,44 @@
-import { GoogleLogin } from 'react-google-login'
+import React, { useState } from 'react';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+
 const clientId = '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com';
+
 function Login() {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
   const onSuccess = (res) => {
     console.log('Login Success! Current user: ', res.profileObj);
-  }
+    setIsSignedIn(true);
+  };
+
   const onFailure = (res) => {
-    console.log('LoginFailed! res: ', res);
-  }
+    console.log('Login Failed! res: ', res);
+  };
+
+  const onLogoutSuccess = () => {
+    console.log('Logout Successful');
+    setIsSignedIn(false);
+  };
+
   return (
     <div id="signinbutton">
-
-      <GoogleLogin
-        clientId={clientId}
-        buttonText="Google Login"
-        onSuccess={onSuccess}
-        onFailure={onFailure}
-        cookiePolicy={'single_host_origin'}
-        isSignedIn={true}
-      />
+      {!isSignedIn ? (
+        <GoogleLogin
+          clientId={clientId}
+          buttonText="Google Login"
+          onSuccess={onSuccess}
+          onFailure={onFailure}
+          cookiePolicy={'single_host_origin'}
+        />
+      ) : (
+        <GoogleLogout
+          clientId={clientId}
+          buttonText="Logout"
+          onLogoutSuccess={onLogoutSuccess}
+        />
+      )}
     </div>
-  )
+  );
 }
+
 export default Login;
