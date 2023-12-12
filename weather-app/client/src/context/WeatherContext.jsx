@@ -11,12 +11,13 @@ export const WeatherProvider = ({ children }) => {
   const [cityInput, setCityInput] = useState('')
   const [city, setCity] = useState('stockholm')
   const [cityImage, setCityImage] = useState({})
+  const [hasImage, setHasImage] = useState(true)
   const [currentWeather, setCurrentWeather] = useState({})
   const [todayWeather, setTodayWeather] = useState([])
   const [weekWeather, setWeekWeather] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
-  console.log(weekWeather)
+
   const getCurrentWeather = async () => {
     try {
       let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=Metric&appid=${api_key}`
@@ -71,12 +72,22 @@ export const WeatherProvider = ({ children }) => {
   }
 
   const getCityImage = async () => {
-    let url = `https://api.teleport.org/api/urban_areas/slug:${formatCity(
-      city,
-    )}/images/`
-    let response = await fetch(url)
-    let data = await response.json()
-    setCityImage(data)
+    try {
+      let url = `https://api.teleport.org/api/urban_areas/slug:${formatCity(
+        city,
+      )}/images/`
+      let response = await fetch(url)
+      let data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(`Status: ${response.status}`)
+      }
+
+      setCityImage(data)
+      setHasImage(true)
+    } catch (error) {
+      setHasImage(false)
+    }
   }
 
   useEffect(() => {
@@ -97,6 +108,7 @@ export const WeatherProvider = ({ children }) => {
         setCityInput,
         weekWeather,
         cityImage,
+        hasImage,
       }}
     >
       {children}
