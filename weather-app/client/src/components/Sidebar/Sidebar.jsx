@@ -8,8 +8,15 @@ import Loader from '../Loader/Loader'
 import { useWeatherContext } from '../../context/WeatherContext'
 
 const Sidebar = () => {
-  const { currentWeather, isLoading, error, setCity, cityInput, setCityInput } =
-    useWeatherContext()
+  const {
+    currentWeather,
+    isLoading,
+    error,
+    setCity,
+    cityInput,
+    setCityInput,
+    cityImage,
+  } = useWeatherContext()
 
   const handleInputChange = (event) => {
     setCityInput(event.target.value)
@@ -77,6 +84,12 @@ const Sidebar = () => {
                   <div className="text">Wind</div>
                 </div>
               </div>
+            </div>
+            <div>
+              <img
+                src={cityImage.photos?.[0]?.image?.web}
+                alt={currentWeather.name}
+              />
             </div>
           </div>
         )}

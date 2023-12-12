@@ -8,7 +8,8 @@ export const WeatherProvider = ({ children }) => {
   const api_key = import.meta.env.VITE_REACT_APP_WEATHER_API_KEY
 
   const [cityInput, setCityInput] = useState('')
-  const [city, setCity] = useState('Stockholm')
+  const [city, setCity] = useState('stockholm')
+  const [cityImage, setCityImage] = useState({})
   const [currentWeather, setCurrentWeather] = useState({})
   const [todayWeather, setTodayWeather] = useState([])
   const [weekWeather, setWeekWeather] = useState([])
@@ -44,7 +45,7 @@ export const WeatherProvider = ({ children }) => {
 
       const currentDate = new Date().toISOString().split('T')[0]
       const todayWeatherData = data.list.filter((item) =>
-        item.dt_txt.startsWith(currentDate)
+        item.dt_txt.startsWith(currentDate),
       )
 
       const uniqueDays = []
@@ -68,9 +69,17 @@ export const WeatherProvider = ({ children }) => {
     }
   }
 
+  const getCityImage = async () => {
+    let url = `https://api.teleport.org/api/urban_areas/slug:${city}/images/`
+    let response = await fetch(url)
+    let data = await response.json()
+    setCityImage(data)
+  }
+
   useEffect(() => {
     getCurrentWeather()
     getTodayWeather()
+    getCityImage()
   }, [city])
 
   return (
@@ -84,6 +93,7 @@ export const WeatherProvider = ({ children }) => {
         cityInput,
         setCityInput,
         weekWeather,
+        cityImage,
       }}
     >
       {children}
