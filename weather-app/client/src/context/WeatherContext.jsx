@@ -14,10 +14,12 @@ export const WeatherProvider = ({ children }) => {
   const [weekWeather, setWeekWeather] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
+  const [temperatureUnit, setTemperatureUnit] = useState('Metric')
+  console.log(temperatureUnit)
   console.log(weekWeather)
   const getCurrentWeather = async () => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=Metric&appid=${api_key}`
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temperatureUnit}&appid=${api_key}`
       console.log(`${url} this is the url`)
       let response = await fetch(url)
       let data = await response.json()
@@ -37,14 +39,14 @@ export const WeatherProvider = ({ children }) => {
 
   const getTodayWeather = async () => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=Metric&appid=${api_key}`
+      let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${temperatureUnit}&appid=${api_key}`
 
       let response = await fetch(url)
       let data = await response.json()
 
       const currentDate = new Date().toISOString().split('T')[0]
       const todayWeatherData = data.list.filter((item) =>
-        item.dt_txt.startsWith(currentDate)
+        item.dt_txt.startsWith(currentDate),
       )
 
       const uniqueDays = []
@@ -71,7 +73,7 @@ export const WeatherProvider = ({ children }) => {
   useEffect(() => {
     getCurrentWeather()
     getTodayWeather()
-  }, [city])
+  }, [city, temperatureUnit])
 
   return (
     <WeatherContext.Provider
@@ -84,6 +86,8 @@ export const WeatherProvider = ({ children }) => {
         cityInput,
         setCityInput,
         weekWeather,
+        temperatureUnit,
+        setTemperatureUnit,
       }}
     >
       {children}

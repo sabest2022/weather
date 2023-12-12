@@ -8,8 +8,15 @@ import Loader from '../Loader/Loader'
 import { useWeatherContext } from '../../context/WeatherContext'
 
 const Sidebar = () => {
-  const { currentWeather, isLoading, error, setCity, cityInput, setCityInput } =
-    useWeatherContext()
+  const {
+    currentWeather,
+    isLoading,
+    error,
+    setCity,
+    cityInput,
+    setCityInput,
+    temperatureUnit,
+  } = useWeatherContext()
 
   const handleInputChange = (event) => {
     setCityInput(event.target.value)
@@ -55,7 +62,7 @@ const Sidebar = () => {
             </div>
             <div className="weather-temp">
               {currentWeather.main?.temp.toFixed(1)}
-              <span>&deg;C</span>
+              <span>&deg;{temperatureUnit === 'Metric' ? 'C' : 'F'}</span>
             </div>
             <div className="weather-location">{currentWeather.name}</div>
             <div className="data-container">
