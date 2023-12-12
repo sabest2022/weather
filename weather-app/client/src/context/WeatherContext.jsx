@@ -14,9 +14,10 @@ export const WeatherProvider = ({ children }) => {
   const [weekWeather, setWeekWeather] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
-  const [temperatureUnit, setTemperatureUnit] = useState('Metric')
-  console.log(temperatureUnit)
-  console.log(weekWeather)
+  const [temperatureUnit, setTemperatureUnit] = useState(
+    localStorage.getItem('temperatureUnit') || 'Metric',
+  )
+
   const getCurrentWeather = async () => {
     try {
       let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temperatureUnit}&appid=${api_key}`
@@ -74,6 +75,10 @@ export const WeatherProvider = ({ children }) => {
     getCurrentWeather()
     getTodayWeather()
   }, [city, temperatureUnit])
+
+  useEffect(() => {
+    localStorage.setItem('temperatureUnit', temperatureUnit)
+  }, [temperatureUnit])
 
   return (
     <WeatherContext.Provider
