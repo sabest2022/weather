@@ -88,6 +88,7 @@ const Sidebar = () => {
             </div>
             {hasImage && (
               <div className="weather-city-image">
+                <h2>{currentWeather.sys?.country}</h2>
                 <img
                   src={cityImage.photos?.[0]?.image?.web}
                   alt={currentWeather.name}
