@@ -6,6 +6,7 @@ import windy_pic from '../../assets/windy_pic.png'
 import humidity_pic from '../../assets/humidity_pic.png'
 import Loader from '../Loader/Loader'
 import { useWeatherContext } from '../../context/WeatherContext'
+import { convertTimestampToDayAndTime } from '../../utils/formatDate'
 
 const Sidebar = () => {
   const { currentWeather, isLoading, error, setCity, cityInput, setCityInput } =
@@ -58,6 +59,7 @@ const Sidebar = () => {
               <span>&deg;C</span>
             </div>
             <div className="weather-location">{currentWeather.name}</div>
+            <h2>{convertTimestampToDayAndTime(currentWeather.dt)}</h2>
             <div className="data-container">
               <div className="element">
                 <img src={humidity_pic} alt="humidity" className="icon" />

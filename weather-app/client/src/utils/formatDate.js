@@ -13,3 +13,21 @@ export const convertTimestampToDayOfWeek = (timestamp) => {
 
   return dayOfWeek
 }
+
+export const convertTimestampToDayAndTime = (timestamp) => {
+  const weekdays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ]
+  const date = new Date(timestamp * 1000)
+  const formattedDay = weekdays[date.getDay()]
+  const hours = date.getHours().toString().padStart(2, '0')
+  const minutes = date.getMinutes().toString().padStart(2, '0')
+  const formattedTime = `${hours}:${minutes}`
+  return `${formattedDay}, ${formattedTime}`
+}
