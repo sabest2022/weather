@@ -70,7 +70,8 @@ export const WeatherProvider = ({ children }) => {
   }
 
   const getCityImage = async () => {
-    let url = `https://api.teleport.org/api/urban_areas/slug:${city}/images/`
+    let formattedCity = city.replace(/\s+/g, '-')
+    let url = `https://api.teleport.org/api/urban_areas/slug:${formattedCity}/images/`
     let response = await fetch(url)
     let data = await response.json()
     setCityImage(data)

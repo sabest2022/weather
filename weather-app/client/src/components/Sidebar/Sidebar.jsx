@@ -19,7 +19,7 @@ const Sidebar = () => {
   } = useWeatherContext()
 
   const handleInputChange = (event) => {
-    setCityInput(event.target.value)
+    setCityInput(event.target.value.toLowerCase())
   }
 
   const handleSearchClick = () => {
