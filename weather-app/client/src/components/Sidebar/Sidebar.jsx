@@ -59,7 +59,9 @@ const Sidebar = () => {
               <span>&deg;C</span>
             </div>
             <div className="weather-location">{currentWeather.name}</div>
-            <h2>{convertTimestampToDayAndTime(currentWeather.dt)}</h2>
+            <h2 className="weather-date">
+              {convertTimestampToDayAndTime(currentWeather.dt)}
+            </h2>
             <div className="data-container">
               <div className="element">
                 <img src={humidity_pic} alt="humidity" className="icon" />
