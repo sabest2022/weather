@@ -36,6 +36,11 @@ main {
     align-items: center;
     height: 2.8rem;
     width: 2.8rem;
+    transition: background-color 0.5s ease;
+
+    &:hover {
+      background-color: rgb(216, 216, 216);
+    }
   }
 }
 
