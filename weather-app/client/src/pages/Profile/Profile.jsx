@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
+import { Link } from "react-router-dom"
 import './Profile.scss'
 
 const Profile = () => {
+  const [user, setUser] = useState({})
+
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+    setUser(currentUser)
+  }, [])
+
   return (
     <div className='profile'>
       <h3>Profile page</h3>
-      <img src="https://robohash.org/yohanna" alt="Profile image" />
+      <img src={user.imageUrl} alt="Profile image" />
       <ul>
-       <li>ID: "ID GOES HERE"</li>
-       <li>Username: "John Doe"</li>
-       <li>Email: "john@gmail.com"</li>
-       <li>Subscription: "IS USER SUBSCRIBED?"</li>
+       <li>ID: {user.googleId}</li>
+       <li>Username: {user.name}</li>
+       <li>Email: {user.email}</li>
       </ul>
-      <button>Sign out</button>
+     <Link to="/">
+     <button>Home</button>
+     </Link>
     </div>
   )
 }
