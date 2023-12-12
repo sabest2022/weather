@@ -14,7 +14,7 @@ export const WeatherProvider = ({ children }) => {
   const [weekWeather, setWeekWeather] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
-  console.log(weekWeather)
+
   const getCurrentWeather = async () => {
     try {
       let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=Metric&appid=${api_key}`
