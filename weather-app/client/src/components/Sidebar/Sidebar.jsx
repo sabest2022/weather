@@ -85,7 +85,7 @@ const Sidebar = () => {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="weather-city-image">
               <img
                 src={cityImage.photos?.[0]?.image?.web}
                 alt={currentWeather.name}

@@ -57,7 +57,7 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10rem;
+  margin-top: 4rem;
 }
 
 .weather-image img {
@@ -113,6 +113,32 @@ input:focus {
 .data {
   font-size: 20px;
   font-weight: 400;
+}
+
+.weather-city-image {
+  margin: 3rem;
+  overflow: hidden;
+  height: 10rem;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  img {
+    height: 100%;
+  }
 }
 
 .text {
