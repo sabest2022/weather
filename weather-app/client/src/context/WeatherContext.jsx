@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { formatCity } from '../utils/formatCity'
 
 export const WeatherContext = createContext()
 
@@ -70,8 +71,9 @@ export const WeatherProvider = ({ children }) => {
   }
 
   const getCityImage = async () => {
-    let formattedCity = city.replace(/\s+/g, '-')
-    let url = `https://api.teleport.org/api/urban_areas/slug:${formattedCity}/images/`
+    let url = `https://api.teleport.org/api/urban_areas/slug:${formatCity(
+      city,
+    )}/images/`
     let response = await fetch(url)
     let data = await response.json()
     setCityImage(data)
