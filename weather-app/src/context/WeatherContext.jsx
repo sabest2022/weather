@@ -11,9 +11,10 @@ export const WeatherProvider = ({ children }) => {
   const [city, setCity] = useState('Stockholm')
   const [currentWeather, setCurrentWeather] = useState({})
   const [todayWeather, setTodayWeather] = useState([])
+  const [weekWeather, setWeekWeather] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
-
+  console.log(weekWeather)
   const getCurrentWeather = async () => {
     try {
       let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=Metric&appid=${api_key}`
@@ -46,9 +47,21 @@ export const WeatherProvider = ({ children }) => {
         item.dt_txt.startsWith(currentDate)
       )
 
+      const uniqueDays = []
+      const weekWeatherData = data.list.filter((item) => {
+        const date = item.dt_txt.split(' ')[0]
+        if (!uniqueDays[date]) {
+          uniqueDays[date] = true
+          return true
+        }
+
+        return false
+      })
+
       setIsLoading(true)
       setError(false)
       setTodayWeather(todayWeatherData)
+      setWeekWeather(weekWeatherData)
     } catch (error) {
       setIsLoading(false)
       setError(true)
@@ -70,6 +83,7 @@ export const WeatherProvider = ({ children }) => {
         todayWeather,
         cityInput,
         setCityInput,
+        weekWeather,
       }}
     >
       {children}
