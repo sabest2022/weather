@@ -1,5 +1,6 @@
 const { OAuth2Client } = require("google-auth-library");
 const User = require("../model/User");
+const session = require("../middleware/session");
 
 const client = new OAuth2Client(
   "152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com"
@@ -42,6 +43,8 @@ async function googleLogin(req, res) {
       res.status(500).json({ message: "Internal server error" });
       return;
     }
+
+    req.session.token = token;
 
     res.status(200).json({ message: "User authenticated", user });
   } catch (error) {

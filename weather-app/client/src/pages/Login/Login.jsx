@@ -1,38 +1,37 @@
-import React, { useState } from 'react';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import axios from 'axios';
+import React, { useState } from 'react'
+import { GoogleLogin, GoogleLogout } from 'react-google-login'
+import axios from 'axios'
 
-const clientId = '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com';
+const clientId =
+  '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com'
 
 function Login() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false)
 
   const onSuccess = (res) => {
-    console.log('Login Success! Current user: ', res.profileObj);
-    // save user locally
-    const currentUser = res.profileObj;
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    setIsSignedIn(true);
+    console.log('Login Success! Current user: ', res.profileObj)
 
     // Send the ID token to your backend server
-    axios.post('http://localhost:3000/api/google-login', { token: res.tokenId })
-      .then(response => {
-        console.log('Server response:', response.data);
+    axios
+      .post('http://localhost:3000/api/google-login', { token: res.tokenId })
+      .then((response) => {
+        console.log('Server response:', response.data)
+        setIsSignedIn(true)
         // Additional logic after successful backend verification
       })
-      .catch(error => {
-        console.error('Server error', error);
-      });
-  };
+      .catch((error) => {
+        console.error('Server error', error)
+      })
+  }
 
   const onFailure = (res) => {
-    console.log('Login Failed! res: ', res);
-  };
+    console.log('Login Failed! res: ', res)
+  }
 
   const onLogoutSuccess = () => {
-    console.log('Logout Successful');
-    setIsSignedIn(false);
-  };
+    console.log('Logout Successful')
+    setIsSignedIn(false)
+  }
 
   return (
     <div id="signinbutton">
@@ -52,7 +51,7 @@ function Login() {
         />
       )}
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login
