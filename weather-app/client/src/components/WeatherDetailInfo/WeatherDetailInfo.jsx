@@ -2,6 +2,12 @@ import React from 'react'
 import './WeatherDetailInfo.scss'
 import { useWeatherContext } from '../../context/WeatherContext'
 import humidity_pic from '../../assets/humidity_pic.png'
+import windy_pic from '../../assets/windy_pic.png'
+import SunRise_pic from '../../assets/sun_Rise.png'
+import Sundown_pic from '../../assets/sun_Down.png'
+import visibility_pic from '../../assets/visibility_pic.png'
+import solup from '../../assets/solup_pic.png'
+import solned from '../../assets/solned_pic.png'
 
 const WeatherDetailInfo = () => {
   const { todayWeather, currentWeather } = useWeatherContext()
@@ -16,21 +22,15 @@ const WeatherDetailInfo = () => {
   const renderVisibility = (date) => (
     <div className="weather-detail-item">
       <h3>Visibility: {date.visibility}</h3>
-      <img
-        src={`https://openweathermap.org/img/wn/${date.weather[0].icon}@2x.png`}
-        alt={date.weather[0].description}
-      />
+      <img src={visibility_pic} alt={date.weather[0].description} />
     </div>
   )
 
   const renderWind = (date) => (
     <div className="weather-detail-item">
-      <h3>Wind: {date.wind.speed}</h3>
+      <h3>Wind: {date.wind.speed} Km/h</h3>
       <h3>Deg: {date.wind.deg}</h3>
-      <img
-        src={`https://openweathermap.org/img/wn/${date.weather[0].icon}@2x.png`}
-        alt={date.weather[0].description}
-      />
+      <img src={windy_pic} alt={date.weather[0].description} />
     </div>
   )
 
@@ -45,13 +45,15 @@ const WeatherDetailInfo = () => {
 
     return (
       <div className="weather-detail-item">
-        <h2>Sunrise & Sunset</h2>
-        <h3>Sunrise: {sunriseTime}</h3>
-        <h3>Sunset: {sunsetTime}</h3>
-        <img
-          src={`https://openweathermap.org/img/wn/${currentWeather.weather[0]?.icon}@2x.png`}
-          alt={currentWeather.weather[0]?.description}
-        />
+        <h3>Sunrise & Sunset</h3>
+        <div className="sunrise-sundown">
+          <img src={solup} />
+          <h3>{sunriseTime}</h3>
+          <div className="sunrise-sundown">
+            <img src={solned} />
+            <h3>{sunsetTime}</h3>
+          </div>
+        </div>
       </div>
     )
   }
