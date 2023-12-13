@@ -17,10 +17,13 @@ export const WeatherProvider = ({ children }) => {
   const [weekWeather, setWeekWeather] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
+  const [temperatureUnit, setTemperatureUnit] = useState(
+    localStorage.getItem('temperatureUnit') || 'Metric',
+  )
 
   const getCurrentWeather = async () => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=Metric&appid=${api_key}`
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temperatureUnit}&appid=${api_key}`
       console.log(`${url} this is the url`)
       let response = await fetch(url)
       let data = await response.json()
@@ -40,7 +43,7 @@ export const WeatherProvider = ({ children }) => {
 
   const getTodayWeather = async () => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=Metric&appid=${api_key}`
+      let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${temperatureUnit}&appid=${api_key}`
 
       let response = await fetch(url)
       let data = await response.json()
@@ -94,7 +97,11 @@ export const WeatherProvider = ({ children }) => {
     getCurrentWeather()
     getTodayWeather()
     getCityImage()
-  }, [city])
+  }, [city, temperatureUnit])
+
+  useEffect(() => {
+    localStorage.setItem('temperatureUnit', temperatureUnit)
+  }, [temperatureUnit])
 
   return (
     <WeatherContext.Provider
@@ -109,6 +116,8 @@ export const WeatherProvider = ({ children }) => {
         weekWeather,
         cityImage,
         hasImage,
+        temperatureUnit,
+        setTemperatureUnit,
       }}
     >
       {children}

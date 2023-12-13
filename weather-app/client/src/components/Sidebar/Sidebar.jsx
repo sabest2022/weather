@@ -17,6 +17,7 @@ const Sidebar = () => {
     setCityInput,
     cityImage,
     hasImage,
+    temperatureUnit,
   } = useWeatherContext()
 
   const handleInputChange = (event) => {
@@ -63,7 +64,7 @@ const Sidebar = () => {
             </div>
             <div className="weather-temp">
               {currentWeather.main?.temp.toFixed(0)}
-              <span>&deg;C</span>
+              <span>&deg;{temperatureUnit === 'Metric' ? 'C' : 'F'}</span>
             </div>
             <div className="weather-location">{currentWeather.name}</div>
             <h2 className="weather-date">
