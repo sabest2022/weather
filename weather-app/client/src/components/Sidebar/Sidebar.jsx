@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './Sidebar.scss'
 import { IoSearch } from 'react-icons/io5'
 
-import windy_pic from '../../assets/windy_pic.png'
-import humidity_pic from '../../assets/humidity_pic.png'
 import Loader from '../Loader/Loader'
 import { useWeatherContext } from '../../context/WeatherContext'
 import { convertTimestampToDayAndTime } from '../../utils/formatDate'
+import { capitalizeWords } from '../../utils/stringUtils'
 
 const Sidebar = () => {
   const {
@@ -63,33 +62,16 @@ const Sidebar = () => {
               />
             </div>
             <div className="weather-temp">
-              {currentWeather.main?.temp.toFixed(1)}
+              {currentWeather.main?.temp.toFixed(0)}
               <span>&deg;C</span>
             </div>
             <div className="weather-location">{currentWeather.name}</div>
             <h2 className="weather-date">
               {convertTimestampToDayAndTime(currentWeather.dt)}
             </h2>
-            <div className="data-container">
-              <div className="element">
-                <img src={humidity_pic} alt="humidity" className="icon" />
-                <div className="data">
-                  <div className="humidity-percent">
-                    {currentWeather.main?.humidity}%
-                  </div>
-                  <div className="text">Humidity</div>
-                </div>
-              </div>
-              <div className="element">
-                <img src={windy_pic} alt="wind" className="icon" />
-                <div className="data">
-                  <div className="wind-rate">
-                    {currentWeather.wind?.speed} km/h
-                  </div>
-                  <div className="text">Wind</div>
-                </div>
-              </div>
-            </div>
+            <h2 className="weather-description">
+              {capitalizeWords(currentWeather.weather?.[0]?.description)}
+            </h2>
             {hasImage && (
               <div className="weather-city-image">
                 <h2>{currentWeather.sys?.country}</h2>
