@@ -9,6 +9,9 @@ function Login() {
 
   const onSuccess = (res) => {
     console.log('Login Success! Current user: ', res.profileObj);
+    // save user locally
+    const currentUser = res.profileObj;
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
     setIsSignedIn(true);
 
     // Send the ID token to your backend server
