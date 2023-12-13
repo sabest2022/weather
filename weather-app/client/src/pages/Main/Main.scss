@@ -16,6 +16,34 @@ main {
   margin-top: 2rem;
 }
 
+.main-buttons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 4rem;
+
+  .interactive-button {
+    border: none;
+    border-radius: 30px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.8rem;
+    width: 2.8rem;
+    transition: background-color 0.5s ease;
+
+    &:hover {
+      background-color: rgb(216, 216, 216);
+    }
+  }
+}
+
 .main-content {
   margin: 0 4rem;
 }
