@@ -1,0 +1,42 @@
+.weather-detail-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  justify-content: center;
+
+  .weather-card-temperature {
+    display: flex;
+    gap: 0.5rem;
+
+    h4:nth-child(2) {
+      color: rgb(216, 216, 216);
+    }
+  }
+  .weather-detail-item {
+    width: 15rem;
+    height: 15rem;
+    background-color: white;
+    border-radius: 15px;
+    justify-content: center;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      max-width: 10rem;
+      max-height: 10rem;
+    }
+  }
+  .sunrise-sundown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      max-width: 4rem;
+      max-height: 4rem;
+    }
+  }
+}
