@@ -1,9 +1,7 @@
 .profile {
     border: 1px solid #ccc;
-    background-color: rgba(0,0,0,0.0105);
     padding: 20px;
     text-align: center;
-    border-radius: 4px;
   
     h3 {
       color: #333;
@@ -29,7 +27,7 @@
     }
   
     button {
-      background-color: #333;
+      background-color: #007bff;
       color: #fff;
       padding: 8px 16px;
       border: none;
@@ -38,7 +36,7 @@
       margin-top: 10px;
   
       &:hover {
-        background-color: #222;
+        background-color: #0056b3;
       }
     }
     // Responsive for mobile devices
