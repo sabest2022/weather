@@ -30,11 +30,10 @@ const createCheckoutSession = async (req, res) => {
 
 const verifySession = async (req, res) => {
   try {
-    const { sessionId } = req.body;
+    const { sessionId, userId } = req.body;
     const session = await stripe.checkout.sessions.retrieve(sessionId);
 
     if (session.payment_status === "paid") {
-      const userId = "657a087463e46863af742a27";
       const user = await User.findById(userId);
 
       user.balance += session.amount_total;

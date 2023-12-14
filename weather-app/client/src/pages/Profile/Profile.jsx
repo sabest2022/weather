@@ -2,25 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './Profile.scss'
 import { useCheckoutContext } from '../../context/CheckoutContext'
+import { useUserContext } from '../../context/UserContext'
 
 const Profile = () => {
   const { redirectToCheckout } = useCheckoutContext()
-  const [user, setUser] = useState({})
-
-  useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-    setUser(currentUser)
-  }, [])
+  const { currentUser } = useUserContext()
 
   return (
     <main>
       <div className="profile-wrapper">
         <div className="user-info-wrapper">
-          <img src={user.imageUrl} alt="Profile image" />
+          <img src={currentUser?.imageUrl} alt="Profile image" />
           <ul>
-            <li>ID: {user.googleId}</li>
-            <li>Username: {user.name}</li>
-            <li>Email: {user.email}</li>
+            <li>ID: {currentUser?._id}</li>
+            <li>Username: {currentUser?.name}</li>
+            <li>Email: {currentUser?.email}</li>
+            <li>Balance: {currentUser?.balance}</li>
           </ul>
           <Link to="/">
             <button>Home</button>
