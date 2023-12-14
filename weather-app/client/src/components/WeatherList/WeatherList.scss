@@ -1,6 +1,7 @@
 .weather-selector {
   display: flex;
   gap: 2rem;
+  font-size: 10px;
 
   h2 {
     color: rgb(216, 216, 216);
@@ -25,5 +26,5 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
-  padding: 2rem 1rem;
+  padding: 2rem 0;
 }

@@ -27,7 +27,6 @@ const WeatherDetailInfo = () => {
   const renderWind = (date) => (
     <div className="weather-detail-item">
       <h3>Wind: {date.wind.speed} Km/h</h3>
-      <h3>Deg: {date.wind.deg}</h3>
       <img src={windy_pic} alt={date.weather[0].description} />
     </div>
   )
