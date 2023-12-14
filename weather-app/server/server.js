@@ -1,15 +1,25 @@
 const express = require("express");
 const cors = require("cors");
-const session = require("./middleware/session");
+const cookieSession = require("cookie-session");
 
 require("dotenv").config();
 const database = require("./database/config");
 const { userRouter } = require("./route/User");
 
 const app = express();
-app.use(session);
-app.use(cors());
 app.use(express.json());
+app.use(cors({ origin: true, credentials: true }));
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["aVeryS3cr3tK3y"],
+    maxAge: 1000 * 60 * 60 * 24, // 24 Hours
+    sameSite: "strict",
+    httpOnly: true,
+    secure: false,
+  })
+);
+
 app.use("/api", userRouter);
 
 const PORT = process.env.PORT || 3000;

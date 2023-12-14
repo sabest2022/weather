@@ -1,6 +1,10 @@
 const express = require("express");
-const { googleLogin } = require("../controller/User");
+const { googleLogin, googleLogout, googleAuth } = require("../controller/User");
 
-const userRouter = express.Router().post("/google-login", googleLogin);
+const userRouter = express
+  .Router()
+  .post("/google-login", googleLogin)
+  .post("/google-logout", googleLogout)
+  .get("/google-authorize", googleAuth);
 
 module.exports = { userRouter };
