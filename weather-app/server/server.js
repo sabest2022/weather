@@ -5,6 +5,9 @@ const cookieSession = require("cookie-session");
 require("dotenv").config();
 const database = require("./database/config");
 const { userRouter } = require("./route/User");
+const User = require("./model/User");
+
+require("dotenv").config();
 
 const app = express();
 app.use(express.json());
