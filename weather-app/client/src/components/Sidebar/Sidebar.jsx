@@ -6,7 +6,7 @@ import Loader from '../Loader/Loader'
 import { useWeatherContext } from '../../context/WeatherContext'
 import { convertTimestampToDayAndTime } from '../../utils/formatDate'
 import { capitalizeWords } from '../../utils/stringUtils'
-
+import { useUserContext } from '../../context/UserContext';
 const Sidebar = () => {
   const {
     currentWeather,
@@ -19,6 +19,7 @@ const Sidebar = () => {
     hasImage,
     temperatureUnit,
   } = useWeatherContext()
+  const { isSignedIn } = useUserContext();
 
   const handleInputChange = (event) => {
     setCityInput(event.target.value)
@@ -31,20 +32,22 @@ const Sidebar = () => {
   return (
     <aside>
       <div className="container">
-        <div className="top-bar">
-          <IoSearch onClick={handleSearchClick} />
-          <input
-            type="text"
-            className="city-input"
-            placeholder="Search for places..."
-            onChange={handleInputChange}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleSearchClick()
-              }
-            }}
-          />
-        </div>
+        {isSignedIn && (
+          <div className="top-bar">
+            <IoSearch onClick={handleSearchClick} />
+            <input
+              type="text"
+              className="city-input"
+              placeholder="Search for places..."
+              onChange={handleInputChange}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearchClick()
+                }
+              }}
+            />
+          </div>
+        )}
 
         {!isLoading && !error ? (
           <div className="loading-container">

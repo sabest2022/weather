@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import axios from 'axios'
+import { useUserContext } from '../../context/UserContext';
 
 const clientId =
   '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com'
 
 function Login() {
-  const [user, setUser] = useState(null)
-  const [isSignedIn, setIsSignedIn] = useState(false)
+  const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useUserContext();
 
-  console.log(user)
+  // const [user, setCurrentUser] = useState(null)
+  // const [isSignedIn, setIsSignedIn] = useState(false)
+  // console.log(user)
   const checkAuthStatus = async () => {
     try {
       const { data } = await axios.get(
         'http://localhost:3000/api/google-authorize',
         { withCredentials: true },
       )
-      setUser(data)
+      setCurrentUser(data)
       setIsSignedIn(true)
     } catch (error) {
-      setUser(null)
+      setCurrentUser(null)
       setIsSignedIn(false)
     }
   }
@@ -59,7 +61,7 @@ function Login() {
       )
 
       if (response.status === 204) {
-        setUser(null)
+        setCurrentUser(null)
         setIsSignedIn(false)
         console.log('Logout was successful')
       } else {
