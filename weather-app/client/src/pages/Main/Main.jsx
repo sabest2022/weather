@@ -46,6 +46,7 @@ const Main = () => {
             &deg;{temperatureUnit === 'Metric' ? 'C' : 'F'}
           </button>
           <LoginButton />
+          <ProfileCard />
         </div>
         <div className="main-content">
           <WeatherList />

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import '../ProfileCard/ProfileCard.scss'
 const ProfileCard = () => {
   const [user, setUser] = useState({})
@@ -10,8 +11,15 @@ const ProfileCard = () => {
 
   return (
     <div className="profile-card-container">
-      <img src={user.imageURl} alt="" />
-      <p>{user.name}</p>
+      <Link to="/profile">
+        {user ? (
+          <>
+            <img src={user.imageUrl} alt="" />
+          </>
+        ) : (
+          <p>No user logged in</p>
+        )}
+      </Link>
     </div>
   )
 }
