@@ -1,71 +1,29 @@
-const express = require('express')
-const cors = require('cors')
-const { OAuth2Client } = require('google-auth-library')
-const client = new OAuth2Client(
-  '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com',
-)
-const User = require("./model/User")
+const express = require("express");
+const cors = require("cors");
+const cookieSession = require("cookie-session");
 
 require("dotenv").config();
 const database = require("./database/config");
+const { userRouter } = require("./route/User");
+const User = require("./model/User");
 
-const app = express()
-app.use(cors())
-app.use(express.json())
+require("dotenv").config();
 
-async function verify(token) {
-  const ticket = await client.verifyIdToken({
-    idToken: token,
-    audience:
-      '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com',
+const app = express();
+app.use(express.json());
+app.use(cors({ origin: true, credentials: true }));
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["aVeryS3cr3tK3y"],
+    maxAge: 1000 * 60 * 60 * 24, // 24 Hours
+    sameSite: "strict",
+    httpOnly: true,
+    secure: false,
   })
-  return ticket.getPayload()
-}
+);
 
-app.post('/api/google-login', async (req, res) => {
-  try {
-    console.log('it triggers server!')
-    const { token } = req.body
-    const user = await verify(token)
-    console.log('User Verified:', user)
+app.use("/api", userRouter);
 
-    User.findOne({ email: user.email })
-    .then(foundUser => {
-      if (foundUser) {
-        console.log("Found user,", foundUser)
-      } else {
-        User.create({
-          name: user.name,
-          email: user.email,
-          imageUrl: user.picture,
-          balance: 0
-        })
-        .then(ok => console.log("User created!"))
-        .catch(err => console.log(err))
-      }
-    })
-    .catch(err => {
-      console.log("Error", err)
-    })
-
-    // Here, handle user login logic.
-    res.status(200).json({ message: 'User authenticated', user })
-  } catch (error) {
-    console.log('it triggers server!')
-    res.status(401).json({ message: 'Authentication failed' })
-  }
-})
-
-app.get('/api/weather', async (req, res) => {
-  try {
-    const apiKey = process.env.WEATHER_API_KEY
-
-    res.json({ message: 'Weather data endpoint reached' })
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: 'Internal server error ' })
-  }
-})
-
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
