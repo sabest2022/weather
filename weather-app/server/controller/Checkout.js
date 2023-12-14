@@ -4,7 +4,7 @@ const CLIENT_URL = process.env.CLIENT_URL;
 const User = require("../model/User");
 
 const createCheckoutSession = async (req, res) => {
-  const { amount, userId } = req.body;
+  const { amount, userId, name } = req.body;
 
   try {
     const session = await stripe.checkout.sessions.create({

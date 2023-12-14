@@ -1,35 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './Profile.scss'
-import axios from 'axios'
+import { useCheckoutContext } from '../../context/CheckoutContext'
 
 const Profile = () => {
+  const { redirectToCheckout } = useCheckoutContext()
   const [user, setUser] = useState({})
-  const [isCheckoutSuccess, setIsCheckoutSuccess] = useState(false)
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'))
     setUser(currentUser)
   }, [])
-
-  const redirectToCheckout = async () => {
-    try {
-      const response = await axios.post('http://localhost:3000/api/checkout', {
-        amount: 1000,
-        userId: '657a087463e46863af742a27',
-      })
-
-      if (response.status === 200) {
-        const { url, sessionId } = response.data
-        localStorage.setItem('session-id', sessionId)
-        window.location = url
-      } else {
-        console.error('Failed to create session')
-      }
-    } catch (error) {
-      console.error('Error starting Checkout session:', error)
-    }
-  }
 
   return (
     <main>
@@ -52,7 +33,6 @@ const Profile = () => {
           <button>500</button>
         </div>
       </div>
-      {isCheckoutSuccess && <Confirmation />}
     </main>
   )
 }
