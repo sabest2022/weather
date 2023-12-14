@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { WeatherProvider } from './context/WeatherContext'
 import Confirmation from './pages/Confirmation/Confirmation'
 import { CheckoutProvider } from './context/CheckoutContext'
-
+import { UserProvider } from './context/UserContext'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,11 +32,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <CheckoutProvider>
-      <WeatherProvider>
-        <RouterProvider router={router} />
-      </WeatherProvider>
-    </CheckoutProvider>
+    <UserProvider>
+      <CheckoutProvider>
+        <WeatherProvider>
+          <RouterProvider router={router} />
+        </WeatherProvider>
+      </CheckoutProvider>
+    </UserProvider>
   )
 }
 
