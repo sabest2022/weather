@@ -1,11 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import axios from 'axios'
+import { useCheckoutContext } from './CheckoutContext'
 
 const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
   const [isSignedIn, setIsSignedIn] = useState(false)
+
+  const { verifyPayment } = useCheckoutContext()
 
   console.log(currentUser)
   const checkAuthStatus = async () => {
@@ -14,7 +17,8 @@ export const UserProvider = ({ children }) => {
         'http://localhost:3000/api/google-authorize',
         { withCredentials: true },
       )
-      setCurrentUser(data)
+
+      getUser(data._id)
       setIsSignedIn(true)
     } catch (error) {
       setCurrentUser(null)
@@ -57,6 +61,19 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  const getUser = async (userId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/user/${userId}`,
+      )
+
+      setCurrentUser(response.data)
+      console.log('User:', response)
+    } catch (error) {
+      console.error('Error fetching user:', error)
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -66,6 +83,7 @@ export const UserProvider = ({ children }) => {
         setIsSignedIn,
         login,
         logout,
+        checkAuthStatus,
       }}
     >
       {children}

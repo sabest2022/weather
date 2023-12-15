@@ -22,13 +22,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <UserProvider>
-      <CheckoutProvider>
+    <CheckoutProvider>
+      <UserProvider>
         <WeatherProvider>
           <RouterProvider router={router} />
         </WeatherProvider>
-      </CheckoutProvider>
-    </UserProvider>
+      </UserProvider>
+    </CheckoutProvider>
   )
 }
 

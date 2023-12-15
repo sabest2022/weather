@@ -11,7 +11,7 @@ const Profile = () => {
     '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com'
 
   const { redirectToCheckout } = useCheckoutContext()
-  const { currentUser, logout } = useUserContext()
+  const { currentUser, logout, checkAuthStatus } = useUserContext()
 
   const navigate = useNavigate()
 
@@ -19,6 +19,10 @@ const Profile = () => {
     await logout()
     navigate('/')
   }
+
+  useEffect(() => {
+    checkAuthStatus()
+  }, [])
 
   return (
     <main>
@@ -29,7 +33,7 @@ const Profile = () => {
             <li>ID: {currentUser?._id}</li>
             <li>Username: {currentUser?.name}</li>
             <li>Email: {currentUser?.email}</li>
-            <li>Balance: {currentUser?.balance}</li>
+            <li>Balance: {currentUser?.balance} kr</li>
           </ul>
           <Link to="/">
             <button>Home</button>
