@@ -1,6 +1,8 @@
 const express = require("express");
 const { providePaidService } = require("../controller/Payment");
-const userRouter = express
-    .Router()
-    .get("/paid-service", providePaidService);
+
+const paymentRouter = express
+  .Router()
+  .post("/paid-service/:id", providePaidService);
+
 module.exports = { paymentRouter };

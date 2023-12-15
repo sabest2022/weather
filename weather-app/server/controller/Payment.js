@@ -1,20 +1,31 @@
 const User = require("../model/User");
 
 async function providePaidService(req, res) {
-    if (!req.session || !req.session.user) {
-        return res.status(401).json({ error: 'Not authenticated' });
+  try {
+    const userId = req.params.id;
+
+    if (!userId) {
+      return res.status(401).json({ error: "Not authenticated" });
     }
 
-    const user = await User.findById(req.session.user._id);
+    const user = await User.findById(userId);
 
-    if (user.balance < COST_OF_SERVICE) {
-        return res.status(400).json({ error: 'Insufficient balance' });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
     }
 
-    user.balance -= COST_OF_SERVICE;
+    if (user.balance <= 0) {
+      return res.status(400).json({ error: "Insufficient balance" });
+    }
+
+    user.balance -= 100;
     await user.save();
 
-    // Provide the service here
-    res.json({ message: 'Service provided' });
-};
+    res.status(200).json({ message: "Service provided" });
+  } catch (error) {
+    res
+      .status(401)
+      .json({ error: "Pay service failed", message: error.message });
+  }
+}
 module.exports = { providePaidService };
