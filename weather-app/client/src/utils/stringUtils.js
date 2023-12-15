@@ -10,3 +10,8 @@ export const formatBalance = (number) => {
 
   return result
 }
+
+export const convertVisibilityToKilometers = (visibilityInMeters) => {
+  const visibilityInKilometers = visibilityInMeters / 1000
+  return visibilityInKilometers
+}
