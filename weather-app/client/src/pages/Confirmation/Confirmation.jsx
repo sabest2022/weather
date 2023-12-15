@@ -1,6 +1,7 @@
 import './Confirmation.scss'
 import { useUserContext } from '../../context/UserContext'
 import { useCheckoutContext } from '../../context/CheckoutContext'
+import { Link } from 'react-router-dom'
 
 const Confirmation = () => {
   const { currentUser } = useUserContext()
@@ -13,9 +14,14 @@ const Confirmation = () => {
   }
 
   return (
-    <div className="conf">
-      <h1>Confirmation</h1>
-    </div>
+    <main>
+      <div className="confirmation-wrapper">
+        <h1>You have successfully topped up your balance...</h1>
+        <Link to="/profile">
+          <button>Profile</button>
+        </Link>
+      </div>
+    </main>
   )
 }
 
