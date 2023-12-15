@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../ProfileCard/ProfileCard.scss'
+import { useUserContext } from '../../context/UserContext'
+import { formatBalance } from '../../utils/stringUtils'
 const ProfileCard = () => {
-  const [user, setUser] = useState({})
-
-  useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-    setUser(currentUser)
-  }, [])
+  const { currentUser } = useUserContext()
 
   return (
     <div className="profile-card-container">
-      <Link to="/profile">
-        {user ? (
-          <>
-            <img src={user.imageUrl} alt="" />
-          </>
-        ) : (
-          <p>No user logged in</p>
-        )}
-      </Link>
+      {currentUser && (
+        <>
+          <div>
+            <Link to="/profile">
+              <img src={currentUser.imageUrl} alt={currentUser.name} />
+            </Link>
+            <p>{formatBalance(currentUser.balance)} kr</p>
+          </div>
+        </>
+      )}
     </div>
   )
 }
