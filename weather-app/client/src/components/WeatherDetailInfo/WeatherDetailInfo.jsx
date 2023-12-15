@@ -8,6 +8,10 @@ import solup from '../../assets/solup_pic.png'
 import solned from '../../assets/solned_pic.png'
 import { BsFillSunriseFill } from 'react-icons/bs'
 import { BsFillSunsetFill } from 'react-icons/bs'
+import { WiHumidity } from 'react-icons/wi'
+import { MdVisibility } from 'react-icons/md'
+import { TbWindmillFilled } from 'react-icons/tb'
+
 import { convertVisibilityToKilometers } from '../../utils/stringUtils'
 
 const WeatherDetailInfo = () => {
@@ -20,7 +24,7 @@ const WeatherDetailInfo = () => {
         <p>
           {date.main.humidity} <span>%</span>
         </p>
-        {/* <img src={humidity_pic} alt={date.weather[0].description} /> */}
+        {<WiHumidity />}
       </div>
     </div>
   )
@@ -32,7 +36,7 @@ const WeatherDetailInfo = () => {
         <p>
           {convertVisibilityToKilometers(date.visibility)} <span>km</span>
         </p>
-        {/* <img src={visibility_pic} alt={date.weather[0].description} /> */}
+        {<MdVisibility />}
       </div>
     </div>
   )
@@ -44,10 +48,11 @@ const WeatherDetailInfo = () => {
         <p>
           {date.wind.speed} <span>km/h</span>
         </p>
-        <p>
-          {date.wind.deg} <span>&deg;</span>{' '}
+        <p className="weather-wind-deg">
+          {date.wind.deg}
+          <span>&deg;</span>{' '}
         </p>
-        {/* <img src={windy_pic} alt={date.weather[0].description} /> */}
+        {<TbWindmillFilled />}
       </div>
     </div>
   )
