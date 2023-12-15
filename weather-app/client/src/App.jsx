@@ -2,7 +2,7 @@ import Main from './pages/Main/Main'
 import Profile from './pages/Profile/Profile'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { WeatherProvider } from './context/WeatherContext'
-
+import { UserProvider } from './context/UserContext'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -16,9 +16,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <WeatherProvider>
-      <RouterProvider router={router} />
-    </WeatherProvider>
+    <UserProvider>
+      <WeatherProvider>
+        <RouterProvider router={router} />
+      </WeatherProvider>
+    </UserProvider>
   )
 }
 
