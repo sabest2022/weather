@@ -8,6 +8,7 @@ import solup from '../../assets/solup_pic.png'
 import solned from '../../assets/solned_pic.png'
 import { BsFillSunriseFill } from 'react-icons/bs'
 import { BsFillSunsetFill } from 'react-icons/bs'
+import { convertVisibilityToKilometers } from '../../utils/stringUtils'
 
 const WeatherDetailInfo = () => {
   const { todayWeather, currentWeather } = useWeatherContext()
@@ -29,7 +30,7 @@ const WeatherDetailInfo = () => {
       <h3>Visibility</h3>
       <div>
         <p>
-          {date.visibility} <span>km</span>
+          {convertVisibilityToKilometers(date.visibility)} <span>km</span>
         </p>
         {/* <img src={visibility_pic} alt={date.weather[0].description} /> */}
       </div>
