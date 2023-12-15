@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import WeatherList from '../../components/WeatherList/WeatherList'
 import WeatherDetailInfo from '../../components/WeatherDetailInfo/WeatherDetailInfo'
+import ProfileCard from '../../components/ProfileCard/ProfileCard'
 import LoginButton from '../Login/Login'
 import { gapi } from 'gapi-script'
 import { IoMdMoon } from 'react-icons/io'
@@ -16,7 +17,7 @@ const Main = () => {
 
   const handleTemperatureUnitChange = () => {
     setTemperatureUnit((prevUnit) =>
-      prevUnit === 'Metric' ? 'Imperial' : 'Metric',
+      prevUnit === 'Metric' ? 'Imperial' : 'Metric'
     )
   }
 
@@ -45,6 +46,7 @@ const Main = () => {
             &deg;{temperatureUnit === 'Metric' ? 'C' : 'F'}
           </button>
           <LoginButton />
+          <ProfileCard />
         </div>
         <div className="main-content">
           <WeatherList />
