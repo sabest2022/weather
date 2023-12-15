@@ -26,6 +26,7 @@ app.use(
 
 app.use("/api", userRouter);
 app.use("/api", checkoutRouter);
+app.use("/api", paymentRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
