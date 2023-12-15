@@ -5,6 +5,7 @@ import { useCheckoutContext } from '../../context/CheckoutContext'
 import { useUserContext } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { GoogleLogout } from 'react-google-login'
+import { formatBalance } from '../../utils/stringUtils'
 
 const Profile = () => {
   const clientId =
@@ -33,7 +34,7 @@ const Profile = () => {
             <li>ID: {currentUser?._id}</li>
             <li>Username: {currentUser?.name}</li>
             <li>Email: {currentUser?.email}</li>
-            <li>Balance: {currentUser?.balance} kr</li>
+            <li>Balance: {formatBalance(currentUser?.balance)} kr</li>
           </ul>
           <Link to="/">
             <button>Home</button>
