@@ -25,9 +25,9 @@ const Profile = () => {
         </div>
         <div className="plans-list">
           <h1>Top up your balance with</h1>
-          <button onClick={redirectToCheckout}>100</button>
-          <button>250</button>
-          <button>500</button>
+          <button onClick={() => redirectToCheckout(100)}>100</button>
+          <button onClick={() => redirectToCheckout(250)}>250</button>
+          <button onClick={() => redirectToCheckout(500)}>500</button>
         </div>
       </div>
     </main>

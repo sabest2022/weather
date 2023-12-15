@@ -4,14 +4,31 @@ const CLIENT_URL = process.env.CLIENT_URL;
 const User = require("../model/User");
 
 const createCheckoutSession = async (req, res) => {
-  const { amount, userId, name } = req.body;
+  const { amount, userId, product } = req.body;
+
+  let priceId;
+
+  switch (product) {
+    case 100:
+      priceId = "price_1ONJHsDTXgg9R4l7KjBeGu4n";
+      break;
+    case 250:
+      priceId = "price_1ONLbwDTXgg9R4l7cxDijbt5";
+      break;
+    case 500:
+      priceId = "price_1ONLcCDTXgg9R4l7HlqjLSHY";
+      break;
+    default:
+      res.status(400).json({ error: "Invalid product" });
+      return;
+  }
 
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
         {
-          price: "price_1ONJHsDTXgg9R4l7KjBeGu4n",
+          price: priceId,
           quantity: 1,
         },
       ],

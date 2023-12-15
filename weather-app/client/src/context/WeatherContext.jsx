@@ -18,7 +18,6 @@ export const WeatherProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
 
-
   const [temperatureUnit, setTemperatureUnit] = useState(
     localStorage.getItem('temperatureUnit') || 'Metric',
   )
@@ -95,11 +94,11 @@ export const WeatherProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    getCurrentWeather()
-    getTodayWeather()
-    getCityImage()
-  }, [city, temperatureUnit])
+  // useEffect(() => {
+  //   getCurrentWeather()
+  //   getTodayWeather()
+  //   getCityImage()
+  // }, [city, temperatureUnit])
 
   useEffect(() => {
     localStorage.setItem('temperatureUnit', temperatureUnit)
