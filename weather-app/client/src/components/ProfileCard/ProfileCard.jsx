@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../ProfileCard/ProfileCard.scss'
+import { useUserContext } from '../../context/UserContext'
 const ProfileCard = () => {
-  const [user, setUser] = useState({})
-
-  useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-    setUser(currentUser)
-  }, [])
+  const { currentUser } = useUserContext()
 
   return (
     <div className="profile-card-container">
       <Link to="/profile">
-        {user ? (
+        {currentUser && (
           <>
-            <img src={user.imageUrl} alt="" />
+            <img src={currentUser.imageUrl} alt={currentUser.name} />
           </>
-        ) : (
-          <p>No user logged in</p>
         )}
       </Link>
     </div>

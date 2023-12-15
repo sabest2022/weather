@@ -3,10 +3,22 @@ import { Link } from 'react-router-dom'
 import './Profile.scss'
 import { useCheckoutContext } from '../../context/CheckoutContext'
 import { useUserContext } from '../../context/UserContext'
+import { useNavigate } from 'react-router-dom'
+import { GoogleLogout } from 'react-google-login'
 
 const Profile = () => {
+  const clientId =
+    '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com'
+
   const { redirectToCheckout } = useCheckoutContext()
-  const { currentUser } = useUserContext()
+  const { currentUser, logout } = useUserContext()
+
+  const navigate = useNavigate()
+
+  const onLogoutSuccess = async () => {
+    await logout()
+    navigate('/')
+  }
 
   return (
     <main>
@@ -22,6 +34,11 @@ const Profile = () => {
           <Link to="/">
             <button>Home</button>
           </Link>
+          <GoogleLogout
+            clientId={clientId}
+            buttonText="Logout"
+            onLogoutSuccess={onLogoutSuccess}
+          />
         </div>
         <div className="plans-list">
           <h1>Top up your balance with</h1>

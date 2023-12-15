@@ -94,11 +94,11 @@ export const WeatherProvider = ({ children }) => {
     }
   }
 
-  // useEffect(() => {
-  //   getCurrentWeather()
-  //   getTodayWeather()
-  //   getCityImage()
-  // }, [city, temperatureUnit])
+  useEffect(() => {
+    getCurrentWeather()
+    getTodayWeather()
+    getCityImage()
+  }, [city, temperatureUnit])
 
   useEffect(() => {
     localStorage.setItem('temperatureUnit', temperatureUnit)
