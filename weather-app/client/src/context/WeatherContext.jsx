@@ -18,7 +18,6 @@ export const WeatherProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
 
-
   const [temperatureUnit, setTemperatureUnit] = useState(
     localStorage.getItem('temperatureUnit') || 'Metric',
   )

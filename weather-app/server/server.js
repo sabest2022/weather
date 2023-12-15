@@ -4,8 +4,9 @@ const cookieSession = require("cookie-session");
 
 require("dotenv").config();
 const database = require("./database/config");
-const { userRouter } = require("./route/User");
 const User = require("./model/User");
+const { userRouter } = require("./route/User");
+const { checkoutRouter } = require("./route/Checkout");
 
 require("dotenv").config();
 
@@ -24,6 +25,7 @@ app.use(
 );
 
 app.use("/api", userRouter);
+app.use("/api", checkoutRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
