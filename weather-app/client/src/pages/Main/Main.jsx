@@ -13,13 +13,26 @@ import { useWeatherContext } from '../../context/WeatherContext'
 const clientId =
   '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com'
 const Main = () => {
-  const { temperatureUnit, setTemperatureUnit } = useWeatherContext()
+  const {
+    temperatureUnit,
+    setTemperatureUnit,
+    city,
+    getCurrentWeather,
+    getTodayWeather,
+    getCityImage,
+  } = useWeatherContext()
 
   const handleTemperatureUnitChange = () => {
     setTemperatureUnit((prevUnit) =>
-      prevUnit === 'Metric' ? 'Imperial' : 'Metric'
+      prevUnit === 'Metric' ? 'Imperial' : 'Metric',
     )
   }
+
+  useEffect(() => {
+    getCurrentWeather()
+    getTodayWeather()
+    getCityImage()
+  }, [city, temperatureUnit])
 
   useEffect(() => {
     function start() {
