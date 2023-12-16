@@ -8,8 +8,7 @@ import { GoogleLogout } from 'react-google-login'
 import { formatBalance } from '../../utils/stringUtils'
 
 const Profile = () => {
-  const clientId =
-    '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com'
+  const clientId = import.meta.env.GOOGLE_CLIENT_ID
 
   const { redirectToCheckout } = useCheckoutContext()
   const { currentUser, logout, checkAuthStatus } = useUserContext()

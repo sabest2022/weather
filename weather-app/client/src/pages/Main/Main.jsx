@@ -10,8 +10,8 @@ import { gapi } from 'gapi-script'
 import { IoMdMoon } from 'react-icons/io'
 import { useWeatherContext } from '../../context/WeatherContext'
 
-const clientId =
-  '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com'
+const clientId = import.meta.env.GOOGLE_CLIENT_ID
+
 const Main = () => {
   const {
     temperatureUnit,
@@ -42,7 +42,7 @@ const Main = () => {
       })
     }
     gapi.load('client:auth2', start)
-  })
+  }, [clientId])
 
   return (
     <main>
