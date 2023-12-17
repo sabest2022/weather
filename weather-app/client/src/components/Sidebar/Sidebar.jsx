@@ -19,6 +19,7 @@ const Sidebar = () => {
     cityImage,
     hasImage,
     temperatureUnit,
+    setHandleSearchClick,
   } = useWeatherContext()
 
   const { isSignedIn, currentUser } = useUserContext()
@@ -29,6 +30,7 @@ const Sidebar = () => {
 
   const handleSearchClick = () => {
     setCity(cityInput)
+    setHandleSearchClick(true)
   }
 
   return (

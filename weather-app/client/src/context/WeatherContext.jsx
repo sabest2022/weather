@@ -11,6 +11,7 @@ export const WeatherProvider = ({ children }) => {
   const api_key = import.meta.env.VITE_REACT_APP_WEATHER_API_KEY
 
   const [cityInput, setCityInput] = useState('')
+  const [handleSearchClick, setHandleSearchClick] = useState(false)
   const [city, setCity] = useState('stockholm')
   const [cityImage, setCityImage] = useState({})
   const [hasImage, setHasImage] = useState(true)
@@ -38,11 +39,15 @@ export const WeatherProvider = ({ children }) => {
 
       getCityImage()
       getTodayWeather()
-      payForSearch(currentUser?._id)
+
+      if (handleSearchClick) {
+        payForSearch(currentUser?._id)
+      }
 
       setIsLoading(true)
       setError(false)
       setCurrentWeather(data)
+      setHandleSearchClick(false)
     } catch (error) {
       setIsLoading(false)
       setError(true)
@@ -134,6 +139,7 @@ export const WeatherProvider = ({ children }) => {
         getTodayWeather,
         getCityImage,
         city,
+        setHandleSearchClick,
       }}
     >
       {children}
