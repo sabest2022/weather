@@ -1,11 +1,6 @@
 import React from 'react'
 import './WeatherDetailInfo.scss'
 import { useWeatherContext } from '../../context/WeatherContext'
-import humidity_pic from '../../assets/humidity_pic.png'
-import windy_pic from '../../assets/windy_pic.png'
-import visibility_pic from '../../assets/visibility_pic.png'
-import solup from '../../assets/solup_pic.png'
-import solned from '../../assets/solned_pic.png'
 import { BsFillSunriseFill } from 'react-icons/bs'
 import { BsFillSunsetFill } from 'react-icons/bs'
 import { WiHumidity } from 'react-icons/wi'
@@ -15,7 +10,7 @@ import { TbWindmillFilled } from 'react-icons/tb'
 import { convertVisibilityToKilometers } from '../../utils/stringUtils'
 
 const WeatherDetailInfo = () => {
-  const { todayWeather, currentWeather } = useWeatherContext()
+  const { currentWeather } = useWeatherContext()
 
   const renderHumidity = (date) => (
     <div className="weather-detail-item">
@@ -87,15 +82,15 @@ const WeatherDetailInfo = () => {
     <div className="weather-detail-container">
       <h2>Today's Highlights</h2>
       <div>
-        {todayWeather.length > 0 && (
+        {currentWeather && (
           <>
-            {renderHumidity(todayWeather[0])}
+            {renderHumidity(currentWeather)}
 
-            {renderVisibility(todayWeather[0])}
+            {renderVisibility(currentWeather)}
 
-            {renderWind(todayWeather[0])}
+            {renderWind(currentWeather)}
 
-            {renderSunrise(currentWeather[0])}
+            {renderSunrise(currentWeather)}
           </>
         )}
       </div>
