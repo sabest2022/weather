@@ -4,3 +4,14 @@ export const capitalizeWords = (str) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
 }
+
+export const formatBalance = (number) => {
+  const result = Math.floor(number / 100)
+
+  return result
+}
+
+export const convertVisibilityToKilometers = (visibilityInMeters) => {
+  const visibilityInKilometers = visibilityInMeters / 1000
+  return visibilityInKilometers
+}

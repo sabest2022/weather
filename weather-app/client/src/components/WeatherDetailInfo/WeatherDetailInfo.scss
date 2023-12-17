@@ -1,44 +1,87 @@
 .weather-detail-container {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: center;
-  gap: 1rem;
+  flex-direction: column;
+  margin-bottom: 2rem;
 
-  .weather-card-temperature {
+  div {
     display: flex;
-    gap: 1rem;
-
-    h4:nth-child(2) {
-      color: rgb(216, 216, 216);
-    }
-  }
-  .weather-detail-item {
-    width: 100px;
-    background-color: white;
-    border-radius: 15px;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    display: flex;
-    flex-direction: column;
     gap: 1rem;
-    padding: 1rem;
-    font-size: 10px;
-    align-items: center;
 
-    img {
-      width: 30px;
-      height: 30px;
-    }
-  }
-  .sunrise-sundown {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    .weather-detail-item {
+      width: 17rem;
+      height: 14rem;
+      background-color: white;
+      border-radius: 15px;
+      justify-content: center;
+      margin: 2rem 1rem;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: start;
 
-    img {
-      width: 50px;
-      height: 50px;
+      h3 {
+        font-size: 20px;
+        font-weight: 100;
+        color: rgb(216, 216, 216);
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 1rem;
+        width: 100%;
+
+        svg {
+          font-size: 40px;
+          color: #48484a;
+        }
+
+        p {
+          font-size: 48px;
+          font-weight: 800;
+
+          span {
+            font-size: 20px;
+            font-weight: 100;
+          }
+        }
+
+        .weather-wind-deg {
+          position: absolute;
+          font-size: 16px;
+          font-weight: 800;
+          margin: 7rem 0 0 1.8rem;
+          color: rgb(216, 216, 216);
+
+          span {
+            font-size: 14px;
+          }
+        }
+
+        img {
+          max-width: 2rem;
+          max-height: 2rem;
+        }
+      }
+
+      .sunrise-sundown {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+
+        svg {
+          font-size: 55px;
+          color: #48484a;
+        }
+
+        p {
+          font-size: 20px;
+        }
+      }
     }
   }
 }

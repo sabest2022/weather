@@ -6,7 +6,9 @@ import Loader from '../Loader/Loader'
 import { useWeatherContext } from '../../context/WeatherContext'
 import { convertTimestampToDayAndTime } from '../../utils/formatDate'
 import { capitalizeWords } from '../../utils/stringUtils'
-import { useUserContext } from '../../context/UserContext';
+import { useUserContext } from '../../context/UserContext'
+import axios from 'axios'
+
 const Sidebar = () => {
   const {
     currentWeather,
@@ -19,7 +21,8 @@ const Sidebar = () => {
     hasImage,
     temperatureUnit,
   } = useWeatherContext()
-  const { isSignedIn } = useUserContext();
+
+  const { isSignedIn, currentUser, checkAuthStatus } = useUserContext()
 
   const handleInputChange = (event) => {
     setCityInput(event.target.value)
@@ -27,6 +30,16 @@ const Sidebar = () => {
 
   const handleSearchClick = () => {
     setCity(cityInput)
+    payForSearch(currentUser?._id)
+    checkAuthStatus()
+  }
+
+  const payForSearch = async (userId) => {
+    try {
+      await axios.post(`http://localhost:3000/api/paid-service/${userId}`)
+    } catch (error) {
+      console.error('Failed to pay for search', error)
+    }
   }
 
   return (
@@ -34,7 +47,9 @@ const Sidebar = () => {
       <div className="container">
         {isSignedIn && (
           <div className="top-bar">
-            <IoSearch onClick={handleSearchClick} />
+            <IoSearch
+              onClick={() => currentUser?.balance > 0 && handleSearchClick()}
+            />
             <input
               type="text"
               className="city-input"
@@ -42,7 +57,7 @@ const Sidebar = () => {
               onChange={handleInputChange}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  handleSearchClick()
+                  currentUser?.balance > 0 && handleSearchClick()
                 }
               }}
             />

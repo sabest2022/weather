@@ -6,28 +6,54 @@ import windy_pic from '../../assets/windy_pic.png'
 import visibility_pic from '../../assets/visibility_pic.png'
 import solup from '../../assets/solup_pic.png'
 import solned from '../../assets/solned_pic.png'
+import { BsFillSunriseFill } from 'react-icons/bs'
+import { BsFillSunsetFill } from 'react-icons/bs'
+import { WiHumidity } from 'react-icons/wi'
+import { MdVisibility } from 'react-icons/md'
+import { TbWindmillFilled } from 'react-icons/tb'
+
+import { convertVisibilityToKilometers } from '../../utils/stringUtils'
 
 const WeatherDetailInfo = () => {
   const { todayWeather, currentWeather } = useWeatherContext()
 
   const renderHumidity = (date) => (
     <div className="weather-detail-item">
-      <h3>Humidity: {date.main.humidity}%</h3>
-      <img src={humidity_pic} alt={date.weather[0].description} />
+      <h3>Humidity</h3>
+      <div>
+        <p>
+          {date.main.humidity} <span>%</span>
+        </p>
+        {<WiHumidity />}
+      </div>
     </div>
   )
 
   const renderVisibility = (date) => (
     <div className="weather-detail-item">
-      <h3>Visibility: {date.visibility}</h3>
-      <img src={visibility_pic} alt={date.weather[0].description} />
+      <h3>Visibility</h3>
+      <div>
+        <p>
+          {convertVisibilityToKilometers(date.visibility)} <span>km</span>
+        </p>
+        {<MdVisibility />}
+      </div>
     </div>
   )
 
   const renderWind = (date) => (
     <div className="weather-detail-item">
-      <h3>Wind: {date.wind.speed} Km/h</h3>
-      <img src={windy_pic} alt={date.weather[0].description} />
+      <h3>Wind Status</h3>
+      <div>
+        <p>
+          {date.wind.speed} <span>km/h</span>
+        </p>
+        <p className="weather-wind-deg">
+          {date.wind.deg}
+          <span>&deg;</span>{' '}
+        </p>
+        {<TbWindmillFilled />}
+      </div>
     </div>
   )
 
@@ -43,12 +69,14 @@ const WeatherDetailInfo = () => {
     return (
       <div className="weather-detail-item">
         <h3>Sunrise & Sunset</h3>
-        <div className="sunrise-sundown">
-          <img src={solup} />
-          <h3>{sunriseTime}</h3>
+        <div>
           <div className="sunrise-sundown">
-            <img src={solned} />
-            <h3>{sunsetTime}</h3>
+            <BsFillSunriseFill />
+            <p>{sunriseTime}</p>
+          </div>
+          <div className="sunrise-sundown">
+            <BsFillSunsetFill />
+            <p>{sunsetTime}</p>
           </div>
         </div>
       </div>
@@ -57,14 +85,20 @@ const WeatherDetailInfo = () => {
 
   return (
     <div className="weather-detail-container">
-      {todayWeather.length > 0 && (
-        <>
-          <div className="detail-card">{renderHumidity(todayWeather[0])}</div>
-          <div className="detail-card">{renderVisibility(todayWeather[0])}</div>
-          <div className="detail-card">{renderWind(todayWeather[0])}</div>
-          <div className="detail-card">{renderSunrise(currentWeather[0])}</div>
-        </>
-      )}
+      <h2>Today's Highlights</h2>
+      <div>
+        {todayWeather.length > 0 && (
+          <>
+            {renderHumidity(todayWeather[0])}
+
+            {renderVisibility(todayWeather[0])}
+
+            {renderWind(todayWeather[0])}
+
+            {renderSunrise(currentWeather[0])}
+          </>
+        )}
+      </div>
     </div>
   )
 }
