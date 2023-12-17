@@ -19,8 +19,6 @@ const Main = () => {
     setTemperatureUnit,
     city,
     getCurrentWeather,
-    getTodayWeather,
-    getCityImage,
     isLoading,
   } = useWeatherContext()
 
@@ -32,8 +30,6 @@ const Main = () => {
 
   useEffect(() => {
     getCurrentWeather()
-    getTodayWeather()
-    getCityImage()
   }, [city, temperatureUnit])
 
   useEffect(() => {

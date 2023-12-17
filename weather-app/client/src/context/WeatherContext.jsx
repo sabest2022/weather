@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { formatCity } from '../utils/formatCity'
+import { useUserContext } from './UserContext'
+import axios from 'axios'
 
 export const WeatherContext = createContext()
 
@@ -22,6 +24,9 @@ export const WeatherProvider = ({ children }) => {
     localStorage.getItem('temperatureUnit') || 'Metric',
   )
 
+  const { currentUser, checkAuthStatus } = useUserContext()
+  console.log(currentUser)
+
   const getCurrentWeather = async () => {
     try {
       let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temperatureUnit}&appid=${api_key}`
@@ -32,6 +37,10 @@ export const WeatherProvider = ({ children }) => {
       if (!response.ok) {
         throw new Error(`Status: ${response.status}`)
       }
+
+      getCityImage()
+      getTodayWeather()
+      payForSearch(currentUser?._id)
 
       setIsLoading(true)
       setError(false)
@@ -91,6 +100,16 @@ export const WeatherProvider = ({ children }) => {
       setHasImage(true)
     } catch (error) {
       setHasImage(false)
+    }
+  }
+
+  const payForSearch = async (userId) => {
+    try {
+      await axios.post(`http://localhost:3000/api/paid-service/${userId}`)
+
+      checkAuthStatus()
+    } catch (error) {
+      console.error('Failed to pay for search', error)
     }
   }
 

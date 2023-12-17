@@ -22,7 +22,7 @@ const Sidebar = () => {
     temperatureUnit,
   } = useWeatherContext()
 
-  const { isSignedIn, currentUser, checkAuthStatus } = useUserContext()
+  const { isSignedIn, currentUser } = useUserContext()
 
   const handleInputChange = (event) => {
     setCityInput(event.target.value)
@@ -30,16 +30,6 @@ const Sidebar = () => {
 
   const handleSearchClick = () => {
     setCity(cityInput)
-    payForSearch(currentUser?._id)
-    checkAuthStatus()
-  }
-
-  const payForSearch = async (userId) => {
-    try {
-      await axios.post(`http://localhost:3000/api/paid-service/${userId}`)
-    } catch (error) {
-      console.error('Failed to pay for search', error)
-    }
   }
 
   return (
