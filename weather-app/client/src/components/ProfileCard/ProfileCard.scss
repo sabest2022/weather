@@ -32,3 +32,11 @@
     }
   }
 }
+
+@media screen and (max-width: 767px) {
+  .profile-card-container {
+    .user-balance {
+      background-color: #f6f6f8;
+    }
+  }
+}

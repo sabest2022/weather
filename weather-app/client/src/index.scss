@@ -14,3 +14,9 @@
   align-items: center;
   font-family: 'DM Sans', sans-serif;
 }
+
+@media screen and (max-width: 767px) {
+  #root {
+    height: auto;
+  }
+}

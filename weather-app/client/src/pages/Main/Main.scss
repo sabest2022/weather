@@ -3,7 +3,6 @@ main {
   width: 80%;
   min-height: 70%;
   display: flex;
-  flex-direction: row;
   margin: 0 auto;
   border-radius: 40px;
   position: relative;
@@ -12,28 +11,28 @@ main {
 .main-wrapper {
   display: flex;
   flex-direction: column;
+  max-width: 100%;
   width: 100%;
   margin-top: 2rem;
 }
 
 .main-buttons {
   display: flex;
-  justify-content: end;
-  align-items: center;
+  justify-content: right;
   gap: 1rem;
-  margin-right: 4rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(1.5rem) scale(0.8);
 
   .interactive-button {
     border: none;
     border-radius: 30px;
     background-color: white;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 1rem;
     font-family: 'DM Sans', sans-serif;
     font-weight: 800;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 2.8rem;
     width: 2.8rem;
     transition: background-color 0.5s ease;
@@ -52,5 +51,31 @@ main {
 }
 
 .main-content {
-  margin: 0 4rem;
+  width: 100%;
+  padding: 2rem 2rem;
+}
+
+@media screen and (max-width: 767px) {
+  main {
+    flex-direction: column;
+    border-radius: 0;
+    width: 100%;
+    position: static;
+
+    aside {
+      border-radius: 0;
+    }
+
+    .main-wrapper {
+      .main-loader-container {
+        height: 100vh;
+      }
+    }
+  }
+
+  .main-buttons {
+    .interactive-button {
+      background-color: #f6f6f8;
+    }
+  }
 }
