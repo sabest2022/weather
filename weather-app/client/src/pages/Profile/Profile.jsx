@@ -6,9 +6,10 @@ import { useUserContext } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { GoogleLogout } from 'react-google-login'
 import { formatBalance } from '../../utils/stringUtils'
+import { MdAccountBalanceWallet } from 'react-icons/md'
 
 const Profile = () => {
-  const clientId = import.meta.env.GOOGLE_CLIENT_ID
+  const clientId = import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID
 
   const { redirectToCheckout } = useCheckoutContext()
   const { currentUser, logout, checkAuthStatus } = useUserContext()
@@ -28,27 +29,36 @@ const Profile = () => {
     <main>
       <div className="profile-wrapper">
         <div className="user-info-wrapper">
-          <img src={currentUser?.imageUrl} alt="Profile image" />
-          <ul>
-            <li>ID: {currentUser?._id}</li>
-            <li>Username: {currentUser?.name}</li>
-            <li>Email: {currentUser?.email}</li>
-            <li>Balance: {formatBalance(currentUser?.balance)} kr</li>
-          </ul>
-          <Link to="/">
-            <button>Home</button>
-          </Link>
-          <GoogleLogout
-            clientId={clientId}
-            buttonText="Logout"
-            onLogoutSuccess={onLogoutSuccess}
-          />
+          <div className="user-info">
+            <h1>{currentUser?.name}</h1>
+            <h2>{currentUser?.email}</h2>
+            <h3 className="user-id">'{currentUser?._id}'</h3>
+          </div>
+          <div className="user-image">
+            <div className="user-balance">
+              <MdAccountBalanceWallet />
+              <p>{formatBalance(currentUser?.balance)} kr</p>
+            </div>
+            <img src={currentUser?.imageUrl} alt="Profile image" />
+          </div>
+          <div className="user-button">
+            <GoogleLogout
+              clientId={clientId}
+              buttonText="Logout"
+              onLogoutSuccess={onLogoutSuccess}
+            />
+          </div>
         </div>
         <div className="plans-list">
           <h1>Top up your balance with</h1>
-          <button onClick={() => redirectToCheckout(100)}>100</button>
-          <button onClick={() => redirectToCheckout(250)}>250</button>
-          <button onClick={() => redirectToCheckout(500)}>500</button>
+          <button onClick={() => redirectToCheckout(100)}>100 kr</button>
+          <button onClick={() => redirectToCheckout(250)}>250 kr</button>
+          <button onClick={() => redirectToCheckout(500)}>500 kr</button>
+        </div>
+        <div className="home-button">
+          <Link to="/">
+            <button>Home</button>
+          </Link>
         </div>
       </div>
     </main>

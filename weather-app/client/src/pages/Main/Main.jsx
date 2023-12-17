@@ -10,7 +10,7 @@ import { gapi } from 'gapi-script'
 import { IoMdMoon } from 'react-icons/io'
 import { useWeatherContext } from '../../context/WeatherContext'
 
-const clientId = import.meta.env.GOOGLE_CLIENT_ID
+const clientId = import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID
 
 const Main = () => {
   const {
