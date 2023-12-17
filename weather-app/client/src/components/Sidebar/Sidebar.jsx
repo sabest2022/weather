@@ -7,7 +7,6 @@ import { useWeatherContext } from '../../context/WeatherContext'
 import { convertTimestampToDayAndTime } from '../../utils/formatDate'
 import { capitalizeWords } from '../../utils/stringUtils'
 import { useUserContext } from '../../context/UserContext'
-import axios from 'axios'
 
 const Sidebar = () => {
   const {

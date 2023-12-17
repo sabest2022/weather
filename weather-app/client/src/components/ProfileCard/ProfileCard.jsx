@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import '../ProfileCard/ProfileCard.scss'
 import { useUserContext } from '../../context/UserContext'

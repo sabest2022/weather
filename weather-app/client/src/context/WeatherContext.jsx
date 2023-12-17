@@ -25,12 +25,10 @@ export const WeatherProvider = ({ children }) => {
   )
 
   const { currentUser, checkAuthStatus } = useUserContext()
-  console.log(currentUser)
 
   const getCurrentWeather = async () => {
     try {
       let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temperatureUnit}&appid=${api_key}`
-      console.log(`${url} this is the url`)
       let response = await fetch(url)
       let data = await response.json()
 

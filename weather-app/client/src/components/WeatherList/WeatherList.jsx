@@ -2,14 +2,13 @@ import { useState } from 'react'
 import './WeatherList.scss'
 import WeatherCard from '../WeatherCard/WeatherCard'
 import { useWeatherContext } from '../../context/WeatherContext'
-import Loader from '../Loader/Loader'
 import {
   convertTimestampToDayOfWeek,
   convertTimestampToTime,
 } from '../../utils/formatDate'
 
 const WeatherList = () => {
-  const { todayWeather, weekWeather, isLoading } = useWeatherContext()
+  const { todayWeather, weekWeather } = useWeatherContext()
   const [selected, setSelected] = useState('today')
 
   const handleSelectorClick = (selected) => {

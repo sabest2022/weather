@@ -13,10 +13,6 @@ function Login() {
     await login(res.tokenId)
   }
 
-  const onFailure = (res) => {
-    console.log('Login Failed! res: ', res)
-  }
-
   return (
     <div id="signinbutton">
       {!isSignedIn && (
@@ -24,7 +20,6 @@ function Login() {
           clientId={clientId}
           buttonText="Google Login"
           onSuccess={onSuccess}
-          onFailure={onFailure}
           cookiePolicy={'single_host_origin'}
         />
       )}
