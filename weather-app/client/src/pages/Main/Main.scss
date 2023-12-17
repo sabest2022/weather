@@ -44,6 +44,13 @@ main {
   }
 }
 
+.main-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .main-content {
   margin: 0 4rem;
 }

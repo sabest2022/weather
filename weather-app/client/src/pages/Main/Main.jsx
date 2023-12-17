@@ -9,6 +9,7 @@ import LoginButton from '../Login/Login'
 import { gapi } from 'gapi-script'
 import { IoMdMoon } from 'react-icons/io'
 import { useWeatherContext } from '../../context/WeatherContext'
+import Loader from '../../components/Loader/Loader'
 
 const clientId = import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID
 
@@ -20,6 +21,7 @@ const Main = () => {
     getCurrentWeather,
     getTodayWeather,
     getCityImage,
+    isLoading,
   } = useWeatherContext()
 
   const handleTemperatureUnitChange = () => {
@@ -61,10 +63,16 @@ const Main = () => {
           <LoginButton />
           <ProfileCard />
         </div>
-        <div className="main-content">
-          <WeatherList />
-          <WeatherDetailInfo />
-        </div>
+        {!isLoading ? (
+          <div className="main-loader-container">
+            <Loader />
+          </div>
+        ) : (
+          <div className="main-content">
+            <WeatherList />
+            <WeatherDetailInfo />
+          </div>
+        )}
       </div>
     </main>
   )

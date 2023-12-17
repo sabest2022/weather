@@ -32,35 +32,29 @@ const WeatherList = () => {
           Week
         </h2>
       </div>
-      {!isLoading ? (
-        <div className="weather-list-loading-container">
-          <Loader />
-        </div>
-      ) : (
-        <div className="weather-list">
-          {selected === 'today'
-            ? todayWeather.map((date, index) => (
-                <WeatherCard
-                  dt={convertTimestampToTime(date.dt)}
-                  icon={date.weather[0].icon}
-                  description={date.weather[0].description}
-                  temp={date.main.temp}
-                  feels_like={date.main.feels_like}
-                  key={index}
-                />
-              ))
-            : weekWeather.map((date, index) => (
-                <WeatherCard
-                  dt={convertTimestampToDayOfWeek(date.dt)}
-                  icon={date.weather[0].icon}
-                  description={date.weather[0].description}
-                  temp={date.main.temp}
-                  feels_like={date.main.feels_like}
-                  key={index}
-                />
-              ))}
-        </div>
-      )}
+      <div className="weather-list">
+        {selected === 'today'
+          ? todayWeather.map((date, index) => (
+              <WeatherCard
+                dt={convertTimestampToTime(date.dt)}
+                icon={date.weather[0].icon}
+                description={date.weather[0].description}
+                temp={date.main.temp}
+                feels_like={date.main.feels_like}
+                key={index}
+              />
+            ))
+          : weekWeather.map((date, index) => (
+              <WeatherCard
+                dt={convertTimestampToDayOfWeek(date.dt)}
+                icon={date.weather[0].icon}
+                description={date.weather[0].description}
+                temp={date.main.temp}
+                feels_like={date.main.feels_like}
+                key={index}
+              />
+            ))}
+      </div>
     </>
   )
 }
