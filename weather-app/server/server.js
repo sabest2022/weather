@@ -4,12 +4,9 @@ const cookieSession = require("cookie-session");
 
 require("dotenv").config();
 const database = require("./database/config");
-const User = require("./model/User");
 const { userRouter } = require("./route/User");
 const { checkoutRouter } = require("./route/Checkout");
 const { paymentRouter } = require("./route/Payment");
-
-require("dotenv").config();
 
 const app = express();
 app.use(express.json());

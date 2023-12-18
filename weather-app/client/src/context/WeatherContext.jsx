@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { formatCity } from '../utils/formatCity'
+import { useUserContext } from './UserContext'
+import axios from 'axios'
 
 export const WeatherContext = createContext()
 
@@ -9,6 +11,7 @@ export const WeatherProvider = ({ children }) => {
   const api_key = import.meta.env.VITE_REACT_APP_WEATHER_API_KEY
 
   const [cityInput, setCityInput] = useState('')
+  const [handleSearchClick, setHandleSearchClick] = useState(false)
   const [city, setCity] = useState('stockholm')
   const [cityImage, setCityImage] = useState({})
   const [hasImage, setHasImage] = useState(true)
@@ -22,10 +25,11 @@ export const WeatherProvider = ({ children }) => {
     localStorage.getItem('temperatureUnit') || 'Metric',
   )
 
+  const { currentUser, checkAuthStatus } = useUserContext()
+
   const getCurrentWeather = async () => {
     try {
       let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temperatureUnit}&appid=${api_key}`
-      console.log(`${url} this is the url`)
       let response = await fetch(url)
       let data = await response.json()
 
@@ -33,9 +37,17 @@ export const WeatherProvider = ({ children }) => {
         throw new Error(`Status: ${response.status}`)
       }
 
+      getCityImage()
+      getTodayWeather()
+
+      if (handleSearchClick) {
+        payForSearch(currentUser?._id)
+      }
+
       setIsLoading(true)
       setError(false)
       setCurrentWeather(data)
+      setHandleSearchClick(false)
     } catch (error) {
       setIsLoading(false)
       setError(true)
@@ -94,6 +106,16 @@ export const WeatherProvider = ({ children }) => {
     }
   }
 
+  const payForSearch = async (userId) => {
+    try {
+      await axios.post(`http://localhost:3000/api/paid-service/${userId}`)
+
+      checkAuthStatus()
+    } catch (error) {
+      console.error('Failed to pay for search', error)
+    }
+  }
+
   useEffect(() => {
     localStorage.setItem('temperatureUnit', temperatureUnit)
   }, [temperatureUnit])
@@ -117,6 +139,7 @@ export const WeatherProvider = ({ children }) => {
         getTodayWeather,
         getCityImage,
         city,
+        setHandleSearchClick,
       }}
     >
       {children}

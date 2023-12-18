@@ -4,7 +4,7 @@ const CLIENT_URL = process.env.CLIENT_URL;
 const User = require("../model/User");
 
 const createCheckoutSession = async (req, res) => {
-  const { amount, userId, product } = req.body;
+  const { product } = req.body;
 
   let priceId;
 
@@ -54,7 +54,6 @@ const verifySession = async (req, res) => {
       const user = await User.findById(userId);
 
       user.balance += session.amount_total;
-      console.log(user);
       await user.save();
     }
 

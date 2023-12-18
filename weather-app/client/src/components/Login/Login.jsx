@@ -1,6 +1,7 @@
 import React from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useUserContext } from '../../context/UserContext'
+import './Login.scss'
 
 const clientId =
   '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com'
@@ -12,10 +13,6 @@ function Login() {
     await login(res.tokenId)
   }
 
-  const onFailure = (res) => {
-    console.log('Login Failed! res: ', res)
-  }
-
   return (
     <div id="signinbutton">
       {!isSignedIn && (
@@ -23,7 +20,6 @@ function Login() {
           clientId={clientId}
           buttonText="Google Login"
           onSuccess={onSuccess}
-          onFailure={onFailure}
           cookiePolicy={'single_host_origin'}
         />
       )}

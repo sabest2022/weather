@@ -10,9 +10,33 @@
       border-radius: 50%;
       margin-bottom: 0.5rem;
     }
+  }
+
+  .user-balance {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    background-color: white;
+    padding: 0.2rem 0.7rem;
+    border-radius: 50px;
+
+    svg {
+      font-size: 14px;
+    }
 
     p {
+      font-size: 16px;
       font-weight: 800;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile-card-container {
+    .user-balance {
+      background-color: #f6f6f8;
     }
   }
 }

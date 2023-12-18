@@ -7,7 +7,6 @@ import { useWeatherContext } from '../../context/WeatherContext'
 import { convertTimestampToDayAndTime } from '../../utils/formatDate'
 import { capitalizeWords } from '../../utils/stringUtils'
 import { useUserContext } from '../../context/UserContext'
-import axios from 'axios'
 
 const Sidebar = () => {
   const {
@@ -20,9 +19,10 @@ const Sidebar = () => {
     cityImage,
     hasImage,
     temperatureUnit,
+    setHandleSearchClick,
   } = useWeatherContext()
 
-  const { isSignedIn, currentUser, checkAuthStatus } = useUserContext()
+  const { isSignedIn, currentUser } = useUserContext()
 
   const handleInputChange = (event) => {
     setCityInput(event.target.value)
@@ -30,16 +30,7 @@ const Sidebar = () => {
 
   const handleSearchClick = () => {
     setCity(cityInput)
-    payForSearch(currentUser?._id)
-    checkAuthStatus()
-  }
-
-  const payForSearch = async (userId) => {
-    try {
-      await axios.post(`http://localhost:3000/api/paid-service/${userId}`)
-    } catch (error) {
-      console.error('Failed to pay for search', error)
-    }
+    setHandleSearchClick(true)
   }
 
   return (

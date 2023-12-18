@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import axios from 'axios'
-import { useCheckoutContext } from './CheckoutContext'
 
 const UserContext = createContext()
 
@@ -8,9 +7,6 @@ export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
   const [isSignedIn, setIsSignedIn] = useState(false)
 
-  const { verifyPayment } = useCheckoutContext()
-
-  console.log(currentUser)
   const checkAuthStatus = async () => {
     try {
       const { data } = await axios.get(
@@ -38,7 +34,7 @@ export const UserProvider = ({ children }) => {
         { withCredentials: true },
       )
       if (response.data) {
-        checkAuthStatus() // Refresh user data
+        checkAuthStatus()
       }
     } catch (error) {
       console.error('Server error during login:', error)
@@ -68,7 +64,6 @@ export const UserProvider = ({ children }) => {
       )
 
       setCurrentUser(response.data)
-      console.log('User:', response)
     } catch (error) {
       console.error('Error fetching user:', error)
     }

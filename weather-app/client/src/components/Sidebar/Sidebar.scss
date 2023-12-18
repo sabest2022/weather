@@ -1,15 +1,15 @@
 aside {
   background-color: white;
   border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
-  display: flex;
-  justify-content: center;
+  border-bottom-left-radius: 40px;
 }
 
 .container {
-  width: 250px;
+  width: 30rem;
   margin: auto;
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .top-bar {
@@ -55,9 +55,6 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
-  width: 64px;
-  margin: 0 auto;
 }
 
 .weather-image img {
@@ -69,12 +66,12 @@ input:focus {
   display: flex;
   justify-content: center;
   color: black;
-  font-size: 2rem;
+  font-size: 5rem;
   font-weight: 400;
 
   span {
-    transform: translateY(5px);
-    font-size: 1rem;
+    transform: translateY(13px);
+    font-size: 2rem;
     font-weight: 600;
   }
 }
@@ -83,7 +80,7 @@ input:focus {
   display: flex;
   justify-content: center;
   color: black;
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: 800;
 }
 
@@ -92,7 +89,7 @@ input:focus {
   justify-content: center;
   font-weight: 100;
   margin: 0 0 3rem;
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
 
 .weather-description {
@@ -135,9 +132,9 @@ input:focus {
 }
 
 .weather-city-image {
-  margin: 1rem auto;
+  margin: 3rem;
   overflow: hidden;
-  height: 100px;
+  height: 10rem;
   width: 80%;
   display: flex;
   justify-content: center;
@@ -185,9 +182,22 @@ input:focus {
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 767px) {
   aside {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+
+    .container {
+      margin-top: 8rem;
+      width: 100%;
+
+      .error-container {
+        margin-bottom: 22rem;
+      }
+    }
+  }
+
+  .weather-city-image {
+    width: auto;
   }
 }

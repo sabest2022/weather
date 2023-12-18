@@ -1,7 +1,6 @@
 .weather-selector {
   display: flex;
   gap: 2rem;
-  font-size: 10px;
 
   h2 {
     color: rgb(216, 216, 216);
@@ -15,16 +14,10 @@
   }
 }
 
-.weather-list-loading-container {
-  display: flex;
-  justify-content: center;
-  margin: 4rem;
-}
-
 .weather-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
-  padding: 2rem 0;
+  padding: 3rem 0;
 }

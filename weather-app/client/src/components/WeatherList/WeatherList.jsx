@@ -2,14 +2,13 @@ import { useState } from 'react'
 import './WeatherList.scss'
 import WeatherCard from '../WeatherCard/WeatherCard'
 import { useWeatherContext } from '../../context/WeatherContext'
-import Loader from '../Loader/Loader'
 import {
   convertTimestampToDayOfWeek,
   convertTimestampToTime,
 } from '../../utils/formatDate'
 
 const WeatherList = () => {
-  const { todayWeather, weekWeather, isLoading } = useWeatherContext()
+  const { todayWeather, weekWeather } = useWeatherContext()
   const [selected, setSelected] = useState('today')
 
   const handleSelectorClick = (selected) => {
@@ -32,35 +31,29 @@ const WeatherList = () => {
           Week
         </h2>
       </div>
-      {!isLoading ? (
-        <div className="weather-list-loading-container">
-          <Loader />
-        </div>
-      ) : (
-        <div className="weather-list">
-          {selected === 'today'
-            ? todayWeather.map((date, index) => (
-                <WeatherCard
-                  dt={convertTimestampToTime(date.dt)}
-                  icon={date.weather[0].icon}
-                  description={date.weather[0].description}
-                  temp={date.main.temp}
-                  feels_like={date.main.feels_like}
-                  key={index}
-                />
-              ))
-            : weekWeather.map((date, index) => (
-                <WeatherCard
-                  dt={convertTimestampToDayOfWeek(date.dt)}
-                  icon={date.weather[0].icon}
-                  description={date.weather[0].description}
-                  temp={date.main.temp}
-                  feels_like={date.main.feels_like}
-                  key={index}
-                />
-              ))}
-        </div>
-      )}
+      <div className="weather-list">
+        {selected === 'today'
+          ? todayWeather.map((date, index) => (
+              <WeatherCard
+                dt={convertTimestampToTime(date.dt)}
+                icon={date.weather[0].icon}
+                description={date.weather[0].description}
+                temp={date.main.temp}
+                feels_like={date.main.feels_like}
+                key={index}
+              />
+            ))
+          : weekWeather.map((date, index) => (
+              <WeatherCard
+                dt={convertTimestampToDayOfWeek(date.dt)}
+                icon={date.weather[0].icon}
+                description={date.weather[0].description}
+                temp={date.main.temp}
+                feels_like={date.main.feels_like}
+                key={index}
+              />
+            ))}
+      </div>
     </>
   )
 }

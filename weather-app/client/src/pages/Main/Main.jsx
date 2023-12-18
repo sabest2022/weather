@@ -5,21 +5,21 @@ import Sidebar from '../../components/Sidebar/Sidebar'
 import WeatherList from '../../components/WeatherList/WeatherList'
 import WeatherDetailInfo from '../../components/WeatherDetailInfo/WeatherDetailInfo'
 import ProfileCard from '../../components/ProfileCard/ProfileCard'
-import LoginButton from '../Login/Login'
+import LoginButton from '../../components/Login/Login'
 import { gapi } from 'gapi-script'
 import { IoMdMoon } from 'react-icons/io'
 import { useWeatherContext } from '../../context/WeatherContext'
+import Loader from '../../components/Loader/Loader'
 
-const clientId =
-  '152826738328-2gschac9945q44ilfue2n9c6d19nt296.apps.googleusercontent.com'
+const clientId = import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID
+
 const Main = () => {
   const {
     temperatureUnit,
     setTemperatureUnit,
     city,
     getCurrentWeather,
-    getTodayWeather,
-    getCityImage,
+    isLoading,
   } = useWeatherContext()
 
   const handleTemperatureUnitChange = () => {
@@ -30,8 +30,6 @@ const Main = () => {
 
   useEffect(() => {
     getCurrentWeather()
-    getTodayWeather()
-    getCityImage()
   }, [city, temperatureUnit])
 
   useEffect(() => {
@@ -42,7 +40,7 @@ const Main = () => {
       })
     }
     gapi.load('client:auth2', start)
-  })
+  }, [clientId])
 
   return (
     <main>
@@ -61,10 +59,16 @@ const Main = () => {
           <LoginButton />
           <ProfileCard />
         </div>
-        <div className="main-content">
-          <WeatherList />
-          <WeatherDetailInfo />
-        </div>
+        {!isLoading ? (
+          <div className="main-loader-container">
+            <Loader />
+          </div>
+        ) : (
+          <div className="main-content">
+            <WeatherList />
+            <WeatherDetailInfo />
+          </div>
+        )}
       </div>
     </main>
   )

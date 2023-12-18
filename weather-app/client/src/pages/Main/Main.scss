@@ -1,6 +1,7 @@
 main {
   background-color: #f6f6f8;
   width: 80%;
+  min-height: 70%;
   display: flex;
   margin: 0 auto;
   border-radius: 40px;
@@ -18,7 +19,7 @@ main {
 .main-buttons {
   display: flex;
   justify-content: right;
-  gap: 0.2rem;
+  gap: 1rem;
   position: absolute;
   top: 0;
   right: 0;
@@ -30,6 +31,8 @@ main {
     background-color: white;
     cursor: pointer;
     font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 800;
     height: 2.8rem;
     width: 2.8rem;
     transition: background-color 0.5s ease;
@@ -40,14 +43,39 @@ main {
   }
 }
 
-.main-content {
-  width: 100%;
-  padding: 2rem 1rem;
+.main-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-@media screen and (max-width: 640px) {
+.main-content {
+  width: 100%;
+  padding: 2rem 2rem;
+}
+
+@media screen and (max-width: 767px) {
   main {
     flex-direction: column;
     border-radius: 0;
+    width: 100%;
+    position: static;
+
+    aside {
+      border-radius: 0;
+    }
+
+    .main-wrapper {
+      .main-loader-container {
+        height: 100vh;
+      }
+    }
+  }
+
+  .main-buttons {
+    .interactive-button {
+      background-color: #f6f6f8;
+    }
   }
 }
